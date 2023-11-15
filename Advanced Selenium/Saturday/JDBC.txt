@@ -1,0 +1,27 @@
+JDBC:
+1. What are the steps to connect to database?
+2. Expalin JDBC architecture/Class diagram of JDBC. 
+3. What are the advantages of JDBC?
+   -> JDBC helps to connect any database from java program
+   -> JDBC helps to automate preconditions
+   -> JDBC helps to automate end to end scenarios
+   -> JDBC helps for partial backend automation
+   -> JDBC helps for database related validations
+4. Why JDBC is required for Developers?
+   -> Any Application should have its physical database to store the data
+   -> Developers use JDBC to communicate with the database
+   -> If java program has to coonect with db then JDBC is like a bridge. 
+5. What is the use of JDBC for automation testers?
+   -> JDBC is required to automate the pre conditions
+      - Scenario:
+        Test Scenario says we have to transfer 10000 rupees from account A to account B
+        Pre condition for above scenario is 10000 rupees should be presnt in account A
+        If we know JDBC, we can connect to database via program and automate the pre condition also
+        This increases the number of automatable test cases.
+   -> JDBC is required to automate End to end Scenarios
+     - Scenario:
+       Test scenario says we have add the product to the cart and verify if the product is 
+       successfylly added in the cart table of database.
+       if we know JDBC, we can connect to database via program and execute a select query 
+       and validate if the data is present or not.
+       This increases number of automatable scenarios. 

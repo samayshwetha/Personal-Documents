@@ -1,0 +1,169 @@
+  Data Driven testing 
+
+
+	What is Data driven testing?
+Read the data from external recourse & run the test is called Data driven testing (parameterization)
+
+	What is Advantages of Data driven testing
+1.	Maintenance of the test data is easy
+2.	Modification of the test data in external recourse is easy 
+3.    Running test scripts in different credentials is easy
+
+                                         Data driven testing from Properties File 
+1.	What is Properties File?
+Properties is java feature file where we can store the data in from of key & values pair,
+Key & value data type should be always string .
+
+2.	How to read data from properties File?
+•	Get the java representation Object of the Physical file using “FileInputSteam
+•	Create a Object of “Properties” class & load all the keys
+•	 Read the data using getProperty(“Key”)
+
+
+public class Properties_file {
+public static void main(String[] args) throws Throwable {
+	WebDriver driver=new EdgeDriver();
+	driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+		
+		//FileInputStream fis=new FileInputStream("C:\\Users\\Shobha\\Desktop\\commondata10.properties.txt");
+		FileInputStream fis=new FileInputStream("./commondata10.properties.txt");
+		Properties pro=new Properties();
+		pro.load(fis);
+		
+		String URL = pro.getProperty("url");
+		String USERNAME = pro.getProperty("username");
+        String PASSWORD = pro.getProperty("password");
+        
+        driver.get(URL);
+         driver.findElement(By.id("username")).sendKeys(USERNAME);
+        driver.findElement(By.name("pwd")).sendKeys(PASSWORD);
+        driver.findElement(By.id("loginButton")).click();
+}}
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+             Data driven testing from Excel File
+
+Apache Poi is the open source libraries used to get & write data from all Microsoft documents like Excel , docx , ppt etc
+In real time most the company preferred the keep the test script data in Excel, because data will be in well-organized manner , so that modification & maintenance is easier.
+
+public class ExcelData{
+
+	public static void main(String[] args) throws Throwable {
+		
+		//WebDriver driver=new EdgeDriver();
+		driver=WebDriverManager.edgedriver().create();
+		
+		FileInputStream fis=new FileInputStream("./commondata10.properties.txt");
+		
+		Properties pro=new Properties();
+		pro.load(fis);
+		
+		String URL = pro.getProperty("url1");
+		driver.get(URL);
+		driver.findElement(By.xpath("//button[text()='✕']")).click();
+		
+		//Fetching data from Excel
+		//connecting the path
+		//FileInputStream fes=new FileInputStream("./Batch10.xlsx");
+		FileInputStream fes=new FileInputStream("C:\\Users\\Shobha\\Desktop\\Batch10.xlsx");
+		//load the data
+		Workbook book = WorkbookFactory.create(fes);
+		
+		//sheet
+		Sheet sheet = book.getSheet("FilpKart");
+		
+		//row
+		Row row = sheet.getRow(1);
+		
+		//cell
+		Cell cell = row.getCell(0);
+		
+		String Exceldata = cell.getStringCellValue();
+		
+		driver.findElement(By.name("q")).sendKeys(Exceldata);
+	}
+
+}
+--------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Example2:-
+
+import java.io.FileInputStream;
+import java.time.Duration;
+import java.util.Properties;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.WorkbookFactory;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class FetchDataFromExcel {
+
+	public static void main(String[] args) throws Throwable {
+		
+		WebDriver driver=new ChromeDriver();
+		driver.manage().window().maximize();
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+		FileInputStream fis= new FileInputStream("./propertiesData.properties");
+		Properties pro = new Properties();
+		pro.load(fis);
+         String URL = pro.getProperty("url1");
+	     driver.get(URL);
+	
+	     FileInputStream fes = new FileInputStream("./ExcelData7pm.xlsx");
+	    //FileInputStream fes = new FileInputStream("C:\\Users\\Shobha\\Desktop\\ExcelData7pm.xlsx");
+	    Workbook book = WorkbookFactory.create(fes);
+	    Sheet sh = book.getSheet("Sheet1");
+	    Row row = sh.getRow(0);
+	     Cell cell = row.getCell(0);
+	     String data = cell.getStringCellValue();
+	     driver.findElement(By.xpath("//input[@id='twotabsearchtextbox']")).sendKeys(data);
+	}
+
+}
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.WorkbookFactory;
+
+public class InsertDataToExcelSheet {
+
+	public static void main(String[] args) throws Throwable {
+		
+		 FileInputStream fes = new FileInputStream("./ExcelData7pm.xlsx");
+		    //FileInputStream fes = new FileInputStream("C:\\Users\\Shobha\\Desktop\\ExcelData7pm.xlsx");
+		    Workbook book = WorkbookFactory.create(fes);
+		    Sheet sh = book.getSheet("Sheet1");
+		    Row row = sh.createRow(4);
+		     Cell cell = row.createCell(4);
+		     cell.setCellValue("shobha");
+		     
+		     FileOutputStream fes1 = new FileOutputStream("./ExcelData7pm.xlsx");
+		     book.write(fes1);
+		     book.close();
+	}
+
+}
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+<!-- https://mvnrepository.com/artifact/org.apache.poi/poi -->
+<dependency>
+    <groupId>org.apache.poi</groupId>
+    <artifactId>poi</artifactId>
+    <version>4.1.2</version>
+</dependency>
+
+<!-- https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml -->
+<dependency>
+    <groupId>org.apache.poi</groupId>
+    <artifactId>poi-ooxml</artifactId>
+    <version>4.1.2</version>
+</dependency>
+------------------------------------------------------------------------------------------------------------------------------------------------------------------

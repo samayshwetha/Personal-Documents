@@ -1,0 +1,26 @@
+xpath for 25cr
+//td[text()='KGF']/../td[.='25cr']
+
+KGF to 20cr
+//td[text()='KGF']/../td[.='25cr']/../..//td[text()='20cr']
+
+
+kantara to 20cr
+//td[text()='Kantara']/../../tr[3]/td[text()='20cr']
+
+
+RRR to 10cr
+//td[text()='RRR']/../../tr[1]/td[3]
+
+for 1 to RRR
+//td[1]/../../tr[3]/td[.='RRR']
+
+using pipeline display movies name
+//td[text()='Kantara']/../td[3]|//td[text()='KGF']/../td[3]
+
+
+//td[text()='Kantara']|//tr/td[text()='KGF']|//td[text()='RRR']
+
+
+traversing to siblings directly using scope ::
+//td[.='KGF']/follwing-sibling::td[2]

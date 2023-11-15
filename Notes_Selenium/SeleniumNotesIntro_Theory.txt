@@ -1,0 +1,197 @@
+1)What is AUTOMATION?
+-Converting Manual Test Cases into Automation TestScripts by using Automation Tool is called as Automation
+
+2)When we will go for Automation ?
+-Automation always takes place on stable application.
+-Application becomes stable when first release done for that application.
+-Hence after release we should go for Automation.
+
+3)Why should we go for Automation?
+-For Repeative task which take place in Regression Testing.
+-Time saving from Second release
+-Accuracy of testing increases
+-To sustain in market compitation.
+
+4)What type of testing take place in Automation?
+-Regression Testing
+
+5)Is 100% Automation is possible?
+-No
+
+6)What is not Automatted?
+-Otp releated scenarios
+-Capcha releated scenarios
+-Virtual keyboard
+-Bio matric
+-Audio,video releated Testcases
+-Voice commands
+-Gamming application
+-If manual testcases steps are improper than that testcases are not automated.
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+ Automation Tool are categorized into two divisions--  @Commercial
+                                                       @OpenSource
+
+Commercial software --> commercial software has the source code(business logic written by developer)
+ that only the person,team or organization that created it can edit,inspect,change and enhance/update 
+it apart from them no one has access to do changes.
+
+commercial tool ex:
+QTP -->QTP stands for QuickTestProfessional, a product of Hewlett Packard(HP) and its a GUI tool.
+         QTP tool helps testers to perform an automated functional testing.
+         QTP supports only Windows OS
+         QTP supports only two languages Java script and Visual Basic script.
+         QTP doesnot support safari browser.
+
+open source software --> open source software is computer software with its source code made available 
+by the developer or organization to everybody to study,change,modify,enhance and distribute.
+
+open source tool ex:
+Selenium Webdriver
+Sikuli
+AutoIT
+
+Non-Functional Testing tools
+
+1.Forecast
+2.JMeter
+3.Load Complete
+-------------------------------------------------------------------------------------------------------------------------------------
+
+
+                                                    SELENIUM
+It is a open source tool which is used to test webapplications and mobile applications.
+
+To perform webapps automation we use Selenium WebDriver.
+To perform mobile application automation we use Appium.(WebDriver is basics and mandatory to learn appium).
+
+                                          What are the flavours/Edition of Selenium?
+1.Selenium core(not at all currently used)Depreciated
+2.Selenium RC(not at all currently used)Depreciated
+3.Selenium IDE          Record and Playback Tool.(Actions will be recorded of webpages)
+                        No need to know any programming language(Automatically scripts are written) and for simple applications 
+it can be used but for complex applications we cannot use.
+
+4.Selenium WebDriver    (Advanced version of selenium core and RC) and current version of selenium is 4 released in november.
+5.Selenium Grid         Helps to automate scripts on multiple machines or computer so execution will be faster.
+6.Appium                Mobile automation tool.
+
+What is previous stable version of selenium webdriver?
+-->3.141.59
+
+
+Advantages of Selenium Automation Tool?
+-->Open source tool.
+
+-->Supports multiple programming languages.
+                                           (java,C#,Python,Ruby,Perl,haskell,Go,Dart,Javascript........)
+-->Supports multiple operating systems(O.S)
+                                           (MAC OS,WINDOWS,LINUX,ANDROID,IOS)
+-->Supports multiple browsers.
+                              (chrome,firefox,opera,Internet Explorer,MS EDGE,Safari)
+
+Disadvantages of selenium?
+-->We cannot automate stand alone applications/Window GUI apps like calculator,notepad..etc..
+
+ What are difference between selenium and QTP?
+-->selenium                                                 	QTP
+           1. It supports multiple OS                           It supports only WINDOWS OS
+           2. It supports multiple Prog Lang                    It supports only 2 lang javascript and visual basic script.
+           3. It supports multiple browsers on multiple OS      Doesnot support safari browser.   
+           4. It supports on WebApps.                           It supports all types of applications.
+           5. open source                                       Licensed Tool.
+
+Which company developed selenium?
+-->ThoughtWorks
+
+Who is the father of selenium?
+-->Jason Huggins(He developed Selenium core since initially he developed but advanced version is selenium webdriver was working at thought works)
+
+What is official website of selenium?
+-->WWW.SeleniumHQ.org  (earlier)
+   but in 2019,they created new website www.selenium.dev  (To download ,check documents)
+
+What is the name of the latest version of selenium?
+-->W3C WebDriver(Selenium webdriver)
+   W3--world wide web
+   C--consortium--its a kind of forum..
+when discussing about architecture will explain detailly about w3c\
+*
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+                      How selenium works?/Architecture of selenium webdriver
+                     --------------------------------------------------------
+Json wire protocol architecture(Selenium prev)
+
+*For succesfull configuration of WebDriver Automation tool we required--
+1) WebDriver Client Library
+2) Browser Server
+3) Actual Browser
+
+WebDriver client Library  
+------------------------
+->Entire WebDriver libraries are available in the form of jars.(jar stands for JavaArchive and its an executable file format like .exe    etc....)
+->In order to access the jars in our project,we have to configure this jar with our automation project.
+->This WebDriver jar is totally collection of java class and interface.
+->Within this jar we will get Json wire protocol which is required for communication between our testsccipts 
+and Browser server.
+
+Browser Server
+----------------
+->Browser server is an webService(All the services over web(cloud) is called as WebService) which is used to interact with actual browsers
+(chrome,firefox,etc.....).
+->Without browser server,script will never interact with actual browsers.
+->Each and every browser has individual Browser servers.
+
+Actual Browser
+---------------
+->Browsers are stand alone applications which is used to access webApplications.
+(StandAlone appln means which is installed in the local sytem and only one user can use at a time examples notepad,vlc media player.......)
+->Browsers must be installed in local system in order to run test scripts with that particular browser...
+
+              How selenium 4 works?
+          ---------------------------------
+->As per selenium 4 ,jsonwire  protocol is replaced by W3C standard protocol.
+->As per recent updation Browser servers and all browsers are operating on W3C protocol only.
+->Due to this change ie with W3C protocol,
+w3c--> world wide web consortium
+                                          1) Conversion rate of code is minimized.
+                                          2) Speed of execution is increased.
+
+
+------------------------------------------------------------------------------------------------------
+
+                                     	Selenium-java architecture
+
+1)Search Context (Interface)
+   -->It Provides search mechanism to search the elements in the webpage.
+   -->It is an interface which contains only two abstract methods.
+      findElement() -->To search single element. 
+      findElements() -->To search multiple elements. 
+
+2)Selenium WebDriver(Interface)
+   -->It provides a way to control the Browser.
+   -->It is the core interface of selenium,without which we cannot start automation because it contains main browser controlling methods.
+   -->It is an interface which has 11 abstract methods.   namely...
+
+      1. get("") -->It is used to navigate particular URL(website) and wait till page load.
+      2. getTitle() -->It will capture the current started page heading and later it will be saved in a variable and next
+ it will be published in the console.
+      3. getCuurentUrl() -->It fetches the URL of the opened application.
+      4. getPageSource() -->It returns the source code of the page which stored as string.
+      5. getWindowHandle() -->It is used to handle child windows.
+      6. getWindowHandles() -->It is used to store all the opened window handles in the set data structure.
+      7. close() -->It is used to close the browser window currently in focus.
+      8. quit() -->It is used to close all the entire browser session with all its tabs and windows.
+      9. navigate() -->It is used to perform different operations such as backward,forward,refresh,wait....etc in browsers history.
+      10. manage() -->It is a method that returns instance/object of options interface.
+      11. switchTo() -->It allows users to switch to a particular frame using frameId/window using  session Id.
+
+3)Remote WebDriver(concrete class)
+     -->It is an implementation concrete class for interfaces in selenium and also it is mainly used to run the testscripts 
+from the host/local computer to the remote computer(selenium grid).
+
+
+
+
+
+

@@ -1,0 +1,707 @@
+                                         WebElement Methods
+    Why webelements?(Why not we store in string?)
+-->To perform multiple actions for same element we go for webelements method.
+-----------------------------------------------------------------------------------------------------  
+   mtd name  return type
+1) clear():  void - WebElement
+   -------
+   This method is used to erase the contents from textboxes.
+Ex:-
+    In actitime, For username textfield
+
+                WebElement textfield = driver.findElement(By.cssSelector("[id='username']"));
+	        textfield.sendKeys("admin");
+	        textfield.clear();
+here in above example textfield is a webelement and hence we are able to perform multiple actions on it.
+======================================================================================================
+2) Submit():void-WebElement 
+  ---------
+->This method is used to complete the search action in any webpage.
+->Internally Submit() execute a javascript language code to click on search button.
+->If we use submit() for other operation(apart from search) than we get javascript Exception.
+
+Ex:- 
+   In google to search we use submit()
+              
+            driver.get("https://www.google.com/");
+            WebElement search = driver.findElement(By.name("q"));
+            search.sendKeys("testyantra software solutions pvt ltd");
+            search.submit();
+
+=====================================================================================================
+3) Click():void
+   -------
+->This method is used to perform clicking action on the webelement located by locators.
+
+======================================================================================================
+4) Dimension getSize()
+   ---------
+-> It is used to capture the width and height of the element.
+
+5) Point getLocation()
+   -------------
+-> It is used to capture X and Y co-ordinate distance of element in webpage.
+
+note**
+     This position is calculated relative to the top-left corner of the webpage of which (x,y) co-ordinates are assumed to be (0,0).
+
+6) Rectangle getRect()
+   ---------
+->It provides Dimension and Location of element.
+
+Example for above methods--In eclipse 
+
+======================================================================================================
+7) boolean isDisplayed()
+   ---------------------
+->This method will check whether particular element is visible in user Interface(UI) or not.
+
+8) boolean isEnabled()
+   -------------------
+->This method will check whether element is enabled for action or not.
+
+9) boolean isSelected()
+   --------------------
+->This method will check whether element is selected or not.
+
+Example for above methods:- In eclipse
+
+======================================================================================================
+10) String getAttribute(String AttributeName)
+    -----------------------------------------
+->This method will capture the value present in given attribute.
+note**
+     if attribute is not present then return null.
+
+
+======================================================================================================
+11) String getTagName()
+    -------------------
+-> This method is used to capture the tagname of webelement.
+
+======================================================================================================
+12) String getArialRole()
+   ------------------------
+-> This method is used to get type of webelement. 
+
+======================================================================================================
+13) getScreenshotAs()
+    -----------------
+-> This method is used to capture the screenshot of particular webelement.
+
+Example is in eclipse.
+
+======================================================================================================
+14) getDomAttribute()
+    -----------------
+->This method is used to capture the required attribute value directly from DOM.
+(If attribute name doesnot exist then it will return null)
+
+Nowadays due to ajax Application ,this method is required for accurate capturing of attribute value.
+
+DOM  -> It stands for Document Object Model
+     -> It is a standard document which describes what content html code will have in other words DOM          is the backbone of HTML document.
+     -> It is fixed.
+
+======================================================================================================
+15) getDomProperty()
+    ----------------
+-> This method is used to capture attribute property value from DOM.
+======================================================================================================
+16) getAccessibleName()
+    -------------------
+-> This method is used to capture name of element given in DOM.
+
+======================================================================================================
+17) sendKeys() -> already done
+18) getText()  -> already done
+======================================================================================================
+
+Program
+
+public class WebElements {
+public static void main(String[] args) throws Throwable {
+		 WebDriver driver=new ChromeDriver();
+		  //  driver.get("https://www.facebook.com/login/");
+		    
+		    //xpath by contains Attribute
+		/*   WebElement font = driver.findElement(By.xpath("//img[contains(@class,'vu img')]"));
+		   //cssValue (WebElement)
+		   String data = font.getCssValue("font-size");
+		   System.out.println(data);
+		  
+		   WebElement value = driver.findElement(By.xpath("//input[@name='email']"));
+		   String data1 = value.getCssValue("color");
+		   System.out.println(data1);*/
+		   
+		    //getLocation() (WebElement)
+		/*  WebElement data = driver.findElement(By.xpath("//a[.='ಕನ್ನಡ']"));
+		   // WebElement data = driver.findElement(By.xpath("//input[contains(@placeholder,'Email address')]"));
+		   Point value = data.getLocation();
+		   System.out.println(value.getX());
+		   System.out.println(value.getY());
+		   System.out.println(value);
+		   
+		   //getSize()
+		   WebElement data1 = driver.findElement(By.xpath("//a[.='ಕನ್ನಡ']"));
+		  // WebElement data1 = driver.findElement(By.xpath("//input[contains(@placeholder,'Email address')]"));
+		    Dimension value1 = data1.getSize();
+		    System.out.println(value1.getHeight());
+		    System.out.println(value1.getWidth());
+		    System.out.println(value1);
+		   
+		    //getRect()
+		    WebElement data2= driver.findElement(By.xpath("//a[.='ಕನ್ನಡ']"));
+		   // WebElement data2 = driver.findElement(By.xpath("//input[contains(@placeholder,'Email address')]"));
+		   Rectangle value2 = data2.getRect();
+		   System.out.println(value2.getHeight());
+		   System.out.println(value2.getWidth());
+		   System.out.println(value2.getX());
+		   System.out.println(value2.getY());*/
+		
+		    driver.get("https://demo.actitime.com/login.do");
+		/*   WebElement UN = driver.findElement(By.id("username"));
+		   UN.sendKeys("admin");
+		   Thread.sleep(1000);
+		  //   UN.clear();
+		     
+		   //isdisplayed()
+		     WebElement data = driver.findElement(By.xpath("//div[@class='atLogoImg']"));
+		      if(data.isDisplayed())
+		     {
+		    	 System.out.println("logo is displayed");
+		     }
+		     else
+		     {
+		    	 System.out.println("logo is not displayed");
+		     }*/
+		    
+		    //isenabled()
+		/* WebElement data = driver.findElement(By.id("username"));
+		      if(data.isEnabled())
+		   {
+			   data.sendKeys("admin");
+		   }
+		   else
+		   {
+			   System.out.println("not enabled");
+		   }
+	 
+		     //isSelected()
+		   WebElement data1= driver.findElement(By.xpath("//input[@type='checkbox']"));
+       data1.click();
+       if(data1.isSelected())
+   {
+	System.out.println("checkbox selected");
+}
+else
+	{
+	System.out.println("checkbox not selected");
+}*/
+		    
+		    //getAttribute()
+	/*	    WebElement data = driver.findElement(By.id("username"));
+String value = data.getAttribute("id");
+System.out.println("Attribute value for id is:"+value);
+
+String value1 = data.getAttribute("type");
+System.out.println("Attribute value for type is:"+value1);
+
+WebElement idvalue = driver.findElement(By.id("loginButton"));
+    String value2 = idvalue.getAttribute("href");
+    System.out.println("value of href:"+value2);
+    
+    //output is Null
+    String val = idvalue.getAttribute("name");
+    System.out.println("value for name is:"+val);*/
+    
+		    WebElement data = driver.findElement(By.id("username"));
+		    String value = data.getTagName();
+		    System.out.println(value);
+		    
+		    WebElement idvalue = driver.findElement(By.id("loginButton"));
+		   String tagname = idvalue.getTagName();
+		   System.out.println(tagname);
+}
+}
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.Dimension;
+import org.openqa.selenium.Point;
+import org.openqa.selenium.Rectangle;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+
+import org.openqa.selenium.edge.EdgeDriver;
+
+public class WebElements {
+
+	public static void main(String[] args) throws Throwable {
+	//WebElement using cssValue()
+		
+		 WebDriver driver=new EdgeDriver();
+	 /*  driver.get("https://www.facebook.com/login/");
+	   WebElement font = driver.findElement(By.xpath("//img[contains(@class,'vu img')]"));
+	   String data = font.getCssValue("font-size");
+	  System.out.println(data);
+	
+	WebElement color = driver.findElement(By.id("email"));
+	String data1 = color.getCssValue("color");
+	System.out.println(data1);*/
+		
+		//WebElement using sendKeys(),submit()
+		
+	/*driver.get("https://www.flipkart.com/");
+	 driver.findElement(By.xpath("//button[text()='✕']")).click();
+	WebElement value = driver.findElement(By.name("q"));
+	value.sendKeys("puma");
+	//value.click();
+	value.submit();*/
+		 
+		/* driver.get("https://demo.actitime.com/login.do");
+WebElement username = driver.findElement(By.cssSelector("input#username"));
+username.sendKeys("admin");
+Thread.sleep(1000);
+username.clear();*/
+	
+		 
+		// driver.get("https://www.facebook.com/login/");
+		 
+		 //getLocation()
+	/*	WebElement data = driver.findElement(By.xpath("//a[.='ಕನ್ನಡ']"));
+		 Point location = data.getLocation();
+		 System.out.println(location.getX());
+		 System.out.println(location.getY());
+		 System.out.println(location);
+		 
+		 WebElement data1 = driver.findElement(By.xpath("//input[@placeholder='Password']"));
+		  Point value = data1.getLocation();
+		
+		  //getSize()
+		  WebElement data2 = driver.findElement(By.xpath("//a[.='ಕನ್ನಡ']"));
+		 Dimension val = data2.getSize();
+		 System.out.println(val.getHeight());
+		 System.out.println(val.getWidth());
+		 System.out.println(val);
+	
+	      //getRect()
+		 WebElement data3 = driver.findElement(By.xpath("//img[contains(@class,'vu img')]"));
+	            Rectangle rec = data3.getRect();
+	            System.out.println(rec.getX());
+	            System.out.println(rec.getY());
+	            System.out.println(rec.getHeight());
+	            System.out.println(rec.getWidth());*/
+	
+	
+	driver.get("https://demo.actitime.com/login.do");
+	driver.manage().window().maximize();
+/*	WebElement logo = driver.findElement(By.xpath("//div[@class='atLogoImg']"));
+	if(logo.isDisplayed())
+	{
+		System.out.println("logo is displayed");
+	}
+	else
+	{
+		System.out.println("logo is not displayed");
+	}*/
+	
+	//isEnabled()
+	/*WebElement data = driver.findElement(By.id("username"));
+	if(data.isEnabled())
+	{
+		data.sendKeys("admin");
+		}
+	else
+	{
+		System.out.println("not enabled");
+	}*/
+	
+	//isSelected()
+	/*WebElement checkBox = driver.findElement(By.xpath("//input[@type='checkbox']"));
+	checkBox.click();
+	if(checkBox.isSelected())
+	{
+		System.out.println("checked");
+	}
+	else
+	{
+		System.out.println("not checked");
+	}*/
+	
+	//getAttribute()
+/*	WebElement data = driver.findElement(By.id("username"));
+	String value = data.getAttribute("id");
+	System.out.println("Attribute value for id is:"+value);*/
+	
+	/*WebElement attribute = driver.findElement(By.name("pwd"));
+	String value1 = attribute.getAttribute("class");
+	System.out.println(value1);*/
+	
+	
+	//getTagName()
+	/*WebElement data = driver.findElement(By.id("loginButton"));
+	String value = data.getTagName();
+	System.out.println(value);*/
+ 
+	//getArialRole()
+	/*WebElement data = driver.findElement(By.xpath("//input[@placeholder='Password']"));
+	String value = data.getAriaRole();
+	System.out.println(value);
+	
+	WebElement data1 = driver.findElement(By.id("loginButton"));
+	String value1 = data1.getAriaRole();
+	System.out.println(value1);
+	
+	WebElement checkBox = driver.findElement(By.xpath("//input[@type='checkbox']"));
+	System.out.println(checkBox.getAriaRole());
+	
+	WebElement acttime = driver.findElement(By.xpath("//div[@class='atLogoImg']"));
+	System.out.println(acttime.getAriaRole());*/
+	
+	/*WebElement data = driver.findElement(By.id("username"));
+	data.sendKeys("admin");
+	System.out.println(data.getDomAttribute("class"));*/
+	
+	WebElement dat = driver.findElement(By.id("username"));
+	System.out.println(dat.getAccessibleName());
+	
+	WebElement attribute = driver.findElement(By.name("pwd"));
+	System.out.println(attribute.getAccessibleName());
+	
+	WebElement data1 = driver.findElement(By.id("loginButton"));
+	System.out.println(data1.getAccessibleName());
+	}
+}
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Example:-3
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.Dimension;
+import org.openqa.selenium.Point;
+import org.openqa.selenium.Rectangle;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.edge.EdgeDriver;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+
+public class WebElementsExs {
+
+	public static void main(String[] args) throws Throwable {
+		
+		WebDriver driver;
+		WebDriverManager.edgedriver().setup();
+		driver=new EdgeDriver();
+		driver.manage().window().maximize();
+		//driver.get("https://www.facebook.com/");
+		
+		//getCssValue()--->WebElement
+	/*	WebElement font = driver.findElement(By.xpath("//img[contains(@class,'fb_logo')]"));
+		String data = font.getCssValue("font-size");
+        System.out.println(data);
+        
+        WebElement text = driver.findElement(By.xpath("//input[@name='email']"));
+        String color = text.getCssValue("color");
+	    System.out.println(color);*/
+		
+		//sendkeys(),submit(),click()
+	/*	driver.get("https://www.flipkart.com/");
+		driver.findElement(By.xpath("//button[contains(.,'✕')]")).click();
+	   WebElement search = driver.findElement(By.name("q"));
+	   search.sendKeys("puma");
+	  // search.click();
+	   search.submit();*/
+		
+	/*	driver.get("https://www.amazon.in/");
+		WebElement searchbox = driver.findElement(By.xpath("//input[@id='twotabsearchtextbox']"));
+		searchbox.sendKeys("nike");
+		searchbox.submit();*/
+		
+		/*driver.get("https://demo.actitime.com/login.do");
+		WebElement data = driver.findElement(By.cssSelector("input#username"));
+		data.sendKeys("admin");
+		Thread.sleep(3000);
+		data.clear();*/
+		
+		//getLocation()--->webElement
+	/*	driver.get("https://www.facebook.com/");
+		WebElement data = driver.findElement(By.xpath("//a[.='ಕನ್ನಡ']"));
+		Point location = data.getLocation();
+		System.out.println(location.getX());
+		System.out.println(location.getY());
+		
+		//getSize()----->WebElement
+		 WebElement data2 = driver.findElement(By.xpath("//a[.='ಕನ್ನಡ']"));
+		Dimension size = data2.getSize();
+		System.out.println(size.getHeight());
+		System.out.println(size.getWidth());
+		
+		//getRect()----->WebElement
+		WebElement data3 = driver.findElement(By.xpath("//a[.='ಕನ್ನಡ']"));
+		Rectangle rec = data3.getRect();
+		System.out.println(rec.getX());
+		System.out.println(rec.getY());
+		System.out.println(rec.getHeight());
+		System.out.println(rec.getWidth());*/
+		
+		
+		driver.get("https://demo.actitime.com/login.do");
+		/*WebElement logo = driver.findElement(By.xpath("//div[@class='atLogoImg']"));
+		if(logo.isDisplayed())
+		{
+			System.out.println("logo is displayed");
+		}
+		else
+		{
+			System.out.println("Logo not displayed");
+		}*/
+		
+		/*WebElement username = driver.findElement(By.id("username"));
+		if(username.isEnabled())
+		{
+			username.sendKeys("admin");
+		}
+		else
+		{
+			System.out.println("not enabled");
+		}*/
+		
+		/*WebElement check = driver.findElement(By.xpath("//input[@type='checkbox']"));
+		check.click();
+		if(check.isSelected())
+		{
+			System.out.println("box is checked");
+		}
+		else
+		{
+			System.out.println("box is not checked");
+		}*/
+		
+		//getTagName()
+	/*	WebElement data = driver.findElement(By.id("username"));
+		String name = data.getTagName();
+		System.out.println(name);
+		
+		WebElement data1 = driver.findElement(By.id("loginButton"));
+		String value = data1.getTagName();
+		System.out.println(value);*/
+		
+	/*	WebElement type = driver.findElement(By.id("username"));
+		String value = type.getAriaRole();
+		System.out.println(value);
+		
+		WebElement check = driver.findElement(By.xpath("//input[@type='checkbox']"));
+		String val = check.getAriaRole();
+		System.out.println(val);*/
+		
+		//DOM:- Document object model
+		//getDomAttribute()
+	/*	WebElement data = driver.findElement(By.id("username"));
+		data.sendKeys("admin");
+		System.out.println(data.getDomAttribute("value"));*/
+		
+		//getDomProperty---->prints only for textbox field
+//		WebElement data1 = driver.findElement(By.id("username"));
+//		System.out.println(data1.getDomProperty("placeholder"));
+//		
+//		WebElement login = driver.findElement(By.id("loginButton"));
+//		System.out.println(login.getDomProperty("class"));
+//		
+//		//getAttribute()
+//		WebElement data = driver.findElement(By.id("username"));
+//		System.out.println(data.getAttribute("class"));
+	
+	driver.findElement(By.id("username")).sendKeys("admin");
+	driver.findElement(By.name("pwd")).sendKeys("manager");
+	driver.findElement(By.id("loginButton")).click();
+	Thread.sleep(1000);
+	WebElement tasklink = driver.findElement(By.cssSelector("a.reports"));
+	System.out.println(tasklink.getAccessibleName());
+
+	}
+
+}
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.Dimension;
+import org.openqa.selenium.Point;
+import org.openqa.selenium.Rectangle;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.edge.EdgeDriver;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+
+public class WebElementMethods {
+
+	public static void main(String[] args) throws Throwable {
+		
+		WebDriverManager.edgedriver().setup();
+		WebDriver driver=new EdgeDriver();
+		driver.manage().window().maximize();
+		/*driver.get("https://www.amazon.in/");
+		Thread.sleep(1000);
+		//webelementmethods():-//sendkeys(),submit(),click()
+		WebElement search = driver.findElement(By.xpath("//input[@id='twotabsearchtextbox']"));
+		search.sendKeys("puma");
+	    //search.submit();
+		search.click();*/
+		
+		//webelementmethods():-//getcssValue()
+		//driver.get("https://www.facebook.com/");
+	/*	WebElement logo = driver.findElement(By.xpath("//img[contains(@class,'fb_log')]"));
+		String size = logo.getCssValue("font-size");
+	    System.out.println(size);
+	
+	WebElement textfield = driver.findElement(By.xpath("//input[@id='email']"));
+	String color = textfield.getCssValue("color");
+	System.out.println(color);*/
+	
+	/*WebElement color1 = driver.findElement(By.xpath("//a[text()='Create new account']"));
+	String text = color1.getCssValue("color");
+	System.out.println(text);
+	
+	WebElement font = driver.findElement(By.xpath("//button[text()='Log in']"));
+	System.out.println(font.getCssValue("font-size"));*/
+	
+		//getLocation()
+		/*WebElement location = driver.findElement(By.xpath("//a[text()='తెలుగు']"));
+		Point data = location.getLocation();
+		System.out.println(data.getX());
+		System.out.println(data.getY());*/
+		
+	/*	WebElement loc = driver.findElement(By.xpath("//a[text()='Groups']"));
+		Point text = loc.getLocation();
+		System.out.println("x coordinate "+text.getX()+" and y coordinate "+text.getY());*/
+		
+		//getSize
+	/*	WebElement element = driver.findElement(By.xpath("//*[text()='తెలుగు']"));
+		Dimension size = element.getSize();
+	System.out.println(size.getHeight());
+	System.out.println(size.getWidth());*/
+	
+/*	WebElement logo = driver.findElement(By.xpath("//img[@alt='Facebook']"));
+	Dimension size1 = logo.getSize();
+	System.out.println(size1.getHeight());
+	System.out.println(size1.getWidth());*/
+	
+	/*WebElement element2 = driver.findElement(By.xpath("//*[text()='తెలుగు']"));
+	Rectangle rect = element2.getRect();
+	System.out.println(rect.getX());
+	System.out.println(rect.getY());
+	//System.out.println(rect.getHeight());
+	//System.out.println(rect.getWidth());*/
+	
+	
+		
+		driver.get("https://demo.actitime.com/login.do");
+		//webelement method--->clear()
+		/*WebElement USERNAME = driver.findElement(By.id("username"));
+		USERNAME.sendKeys("admin");
+		Thread.sleep(2000);
+		USERNAME.clear();
+		
+		Thread.sleep(2000);
+		USERNAME.sendKeys("shobha");*/
+	
+		/*WebElement actTimeLogo = driver.findElement(By.xpath("//div[@class='atLogoImg']"));
+	if(actTimeLogo.isDisplayed())
+	{
+		System.out.println("logo displayed");
+	}
+	else
+	{
+		System.out.println("logo not displayed");
+	}
+	
+	WebElement UserTextField = driver.findElement(By.id("username"));
+	if(UserTextField.isEnabled())
+	{
+		UserTextField.sendKeys("admin");
+	}
+	else
+	{
+		System.out.println("not enabled");
+	}
+	
+	WebElement login = driver.findElement(By.xpath("//a[@id='loginButton']"));
+	if(login.isEnabled())
+	{
+		login.sendKeys("jhvh");
+	}
+	else
+	{
+		System.out.println("not enabled");
+	}*/
+	
+    /*   WebElement checkbox = driver.findElement(By.xpath("//input[@name='remember']"));
+		Thread.sleep(2000);
+		
+		checkbox.click();
+	if(checkbox.isSelected())
+	{
+		
+		System.out.println("is selected");
+	}
+	else
+	{
+		System.out.println("is not selected");
+	}*/
+		
+		//getAttribute()
+	/*	WebElement USERNAME = driver.findElement(By.id("username"));
+		System.out.println(USERNAME.getAttribute("class"));
+		
+	   WebElement check = driver.findElement(By.xpath("//input[@name='remember']"));
+	   System.out.println(check.getAttribute("title"));*/
+	
+	//getTagName()
+	/*WebElement USERNAME = driver.findElement(By.id("username"));
+	System.out.println(USERNAME.getTagName());
+	
+	WebElement logo = driver.findElement(By.className("atLogoImg"));
+	System.out.println(logo.getTagName());*/
+	
+		//getAriaRole()
+		/*WebElement USERNAME = driver.findElement(By.id("username"));
+		System.out.println(USERNAME.getAriaRole());
+	
+		WebElement data = driver.findElement(By.xpath("//input[@name='remember']"));
+	    System.out.println(data.getAriaRole());
+	
+	    WebElement data1 = driver.findElement(By.id("loginButton"));
+        System.out.println(data1.getAriaRole());
+    
+        WebElement logo = driver.findElement(By.className("atLogoImg"));
+        System.out.println(logo.getAriaRole());*/
+		
+		//16th-->getAccessibleName()
+		// WebElement data1 = driver.findElement(By.id("loginButton"));
+		 //System.out.println(data1.getDomProperty("clientHeight"));
+	
+		/* WebElement USERNAME = driver.findElement(By.id("username"));
+		 System.out.println(USERNAME.getAccessibleName());
+	
+		 WebElement check = driver.findElement(By.xpath("//input[@name='remember']"));
+		 System.out.println(check.getAccessibleName());
+		
+		//DOM--->Document object Model
+	/*	// WebElement USERNAME = driver.findElement(By.id("username"));
+		 //System.out.println(USERNAME.getDomAttribute("id"));*/
+		
+	//	WebElement USERNAME = driver.findElement(By.id("username"));
+		//System.out.println(USERNAME.getDomProperty("checked"));
+	
+	
+		 WebElement data1 = driver.findElement(By.id("loginButton"));
+	        System.out.println(data1.getAriaRole());
+	}
+	
+
+
+}
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------

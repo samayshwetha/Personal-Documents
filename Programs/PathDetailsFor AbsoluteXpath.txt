@@ -1,0 +1,17 @@
+html/body/div[1]/input[1]-----A
+html/body/div[1]/input[2]-----B
+html/body/div[2]/input[1]-----C
+html/body/div[2]/input[2]-----D
+html/body/div[3]/input[1]-----E
+html/body/div[3]/input[2]-----F
+html/body/div[3]/input[3]-----G
+
+html/body/div[1]/input------AB
+html/body/div[2]/input-------CD
+
+html/body/div[2]/input[1]|html/body/div[2]/input[2]|html/body/div[1]/input[1]|html/body/div[1]/input[2]
+
+
+html/body/div[1]/input[2]|html/body/div[2]/input[2]---BD
+html/body/div[1]/input[2]|html/body/div[2]/input[1]---BC
+html/body/div[1]/input|html/body/div[2]/input[1]----ABC

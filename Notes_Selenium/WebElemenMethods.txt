@@ -1,0 +1,128 @@
+import org.openqa.selenium.By;
+import org.openqa.selenium.Dimension;
+import org.openqa.selenium.Point;
+import org.openqa.selenium.Rectangle;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class WebElementMethods {
+
+	public static void main(String[] args) throws Throwable {
+		
+		WebDriver driver=new ChromeDriver();
+		driver.manage().window().maximize();
+		/*driver.get("https://www.amazon.in/");
+		Thread.sleep(1000);
+		//webelementmethods():-//sendkeys(),submit(),click()
+		WebElement search = driver.findElement(By.xpath("//input[@id='twotabsearchtextbox']"));
+		search.sendKeys("puma");
+	    //search.submit();
+		search.click();*/
+		
+		//webelementmethods():-//getcssValue()
+		//driver.get("https://www.facebook.com/");
+	/*	WebElement logo = driver.findElement(By.xpath("//img[contains(@class,'fb_log')]"));
+		String size = logo.getCssValue("font-size");
+	    System.out.println(size);
+	
+	WebElement textfield = driver.findElement(By.xpath("//input[@id='email']"));
+	String color = textfield.getCssValue("color");
+	System.out.println(color);*/
+	
+	/*WebElement color1 = driver.findElement(By.xpath("//a[text()='Create new account']"));
+	String text = color1.getCssValue("color");
+	System.out.println(text);
+	
+	WebElement font = driver.findElement(By.xpath("//button[text()='Log in']"));
+	System.out.println(font.getCssValue("font-size"));*/
+	
+		//getLocation()
+		/*WebElement location = driver.findElement(By.xpath("//a[text()='తెలుగు']"));
+		Point data = location.getLocation();
+		System.out.println(data.getX());
+		System.out.println(data.getY());*/
+		
+	/*	WebElement loc = driver.findElement(By.xpath("//a[text()='Groups']"));
+		Point text = loc.getLocation();
+		System.out.println("x coordinate "+text.getX()+" and y coordinate "+text.getY());*/
+		
+		//getSize
+	/*	WebElement element = driver.findElement(By.xpath("//*[text()='తెలుగు']"));
+		Dimension size = element.getSize();
+	System.out.println(size.getHeight());
+	System.out.println(size.getWidth());*/
+	
+/*	WebElement logo = driver.findElement(By.xpath("//img[@alt='Facebook']"));
+	Dimension size1 = logo.getSize();
+	System.out.println(size1.getHeight());
+	System.out.println(size1.getWidth());*/
+	
+	/*WebElement element2 = driver.findElement(By.xpath("//*[text()='తెలుగు']"));
+	Rectangle rect = element2.getRect();
+	System.out.println(rect.getX());
+	System.out.println(rect.getY());
+	//System.out.println(rect.getHeight());
+	//System.out.println(rect.getWidth());*/
+	
+	
+		
+		driver.get("https://demo.actitime.com/login.do");
+		//webelement method--->clear()
+		/*WebElement USERNAME = driver.findElement(By.id("username"));
+		USERNAME.sendKeys("admin");
+		Thread.sleep(2000);
+		USERNAME.clear();
+		
+		Thread.sleep(2000);
+		USERNAME.sendKeys("shobha");*/
+	
+		/*WebElement actTimeLogo = driver.findElement(By.xpath("//div[@class='atLogoImg']"));
+	if(actTimeLogo.isDisplayed())
+	{
+		System.out.println("logo displayed");
+	}
+	else
+	{
+		System.out.println("logo not displayed");
+	}
+	
+	WebElement UserTextField = driver.findElement(By.id("username"));
+	if(UserTextField.isEnabled())
+	{
+		UserTextField.sendKeys("admin");
+	}
+	else
+	{
+		System.out.println("not enabled");
+	}
+	
+	WebElement login = driver.findElement(By.xpath("//a[@id='loginButton']"));
+	if(login.isEnabled())
+	{
+		login.sendKeys("jhvh");
+	}
+	else
+	{
+		System.out.println("not enabled");
+	}*/
+	
+	
+		WebElement checkbox = driver.findElement(By.xpath("//div[@id='keepLoggedInCheckBoxContainer']"));
+		Thread.sleep(2000);
+		checkbox.click();
+		
+	if(checkbox.isSelected())
+	{
+		System.out.println("is selected");
+	}
+	else
+	{
+		System.out.println("is not selected");
+	}
+	
+	}
+	
+
+
+}

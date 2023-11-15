@@ -1,0 +1,124 @@
+import java.util.List;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+
+public class AutoSuggestion {
+
+	public static void main(String[] args) throws Throwable {
+		
+		WebDriverManager.chromedriver().setup();
+		WebDriver driver=new ChromeDriver();
+		driver.manage().window().maximize();
+		driver.get("https://www.flipkart.com/");
+		driver.findElement(By.xpath("//button[.='✕']")).click();
+
+		driver.findElement(By.name("q")).sendKeys("nike");
+		
+		Thread.sleep(1000);
+		//List<WebElement> allSuggesstion = driver.findElements(By.tagName("li"));//1of8
+	List<WebElement> allSuggestion = driver.findElements(By.xpath("//ul[@class='col-12-12 _1MRYA1 _38UFBk']/li"));
+	
+	for( WebElement listele:allSuggestion)
+	{
+		System.out.println(listele.getText());
+		if(listele.getText().contains("nike shoes men"))
+		{
+			listele.click();
+			break;
+		}
+	}
+	}}
+--------------------------------------------------------------------------------------------------------------------------
+
+import java.util.List;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+
+public class AutoSuggestion1 {
+
+	public static void main(String[] args) throws Throwable {
+		
+		WebDriver driver=new ChromeDriver();
+		driver.manage().window().maximize();
+		driver.get("https://www.amazon.in");
+		//driver.get("https://www.amazon.in");
+		driver.findElement(By.xpath("//input[@placeholder='Search Amazon.in']")).sendKeys("puma");
+		Thread.sleep(4000);
+		List<WebElement> suggestion = driver.findElements(By.xpath("//div[@class='s-suggestion s-suggestion-ellipsis-direction']"));
+		for (WebElement Element : suggestion) 
+		{
+			System.out.println(Element.getText());
+			String text = Element.getText();
+			if(text.equalsIgnoreCase("puma t shirts for men"))
+			{
+				Element.click();
+				break;
+			}
+		}
+		
+		
+		
+	}}	
+-------------------------------------------------------------------------------------------------------------------------
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import io.github.bonigarcia.wdm.WebDriverManager;
+
+public class KeysClassEx {
+
+	public static void main(String[] args) {
+		
+		//import org.openqa.selenium.Keys;
+		WebDriverManager.chromedriver().setup();
+		WebDriver driver=new ChromeDriver();
+		driver.get("https://demo.actitime.com/login.do");
+
+		//case:1
+	/*	driver.findElement(By.id("username")).sendKeys("admin");
+		WebElement PASSWORD = driver.findElement(By.name("pwd"));
+		PASSWORD.sendKeys("manager",Keys.ENTER);*/
+	
+		//case:2
+		/*driver.findElement(By.id("username")).sendKeys("admin");
+		driver.findElement(By.name("pwd")).sendKeys("manager",Keys.ENTER);*/
+	
+	//case:3
+		//driver.findElement(By.id("username")).sendKeys("admin",Keys.TAB,"manager",Keys.ENTER);
+	
+		//case:4 checkbox
+		driver.findElement(By.id("username")).sendKeys("admin",Keys.TAB,"manager",Keys.TAB,Keys.SPACE,Keys.ENTER);
+	}
+
+}
+-------------------------------------------------------------------------------------------------------------------------
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+
+public class KeysClassEx2 {
+
+	public static void main(String[] args) {
+		WebDriverManager.chromedriver().setup();
+		WebDriver driver=new ChromeDriver();
+		driver.get("https://www.amazon.in");
+		driver.findElement(By.xpath("//input[@id='twotabsearchtextbox']")).sendKeys("puma",Keys.ENTER);
+	}
+
+}
+------------------------------------------------------------------------------------------------------------------------

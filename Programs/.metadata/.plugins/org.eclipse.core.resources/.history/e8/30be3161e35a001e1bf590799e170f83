@@ -1,0 +1,13 @@
+package com.javaprograms;
+
+public class RemovingDublicateCharatersInaString {
+
+	public static void main(String[] args) {
+		
+		String name="Shwetha";
+		char[] ch = name.toCharArray();
+		
+
+	}
+
+}

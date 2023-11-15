@@ -1,0 +1,22 @@
+Scenario 1:
+Navigate to VTiger App
+Navigate to Oranizations page
+check on all the check boxes
+
+Scenario 2:
+Navigate to VTiger App
+Navigate to Oranizations page
+check on 5th the check boxes
+
+Scenario 3:
+Navigate to VTiger App
+Navigate to Oranizations page
+capture all the organization names and prnt in console. 
+
+Scenario 4:
+Navigate to Organizations page
+Click on the last check box
+
+Scenario 5:
+Navigate to Organizations page
+click on 8th check box and capture the Organization name and delete that organization 

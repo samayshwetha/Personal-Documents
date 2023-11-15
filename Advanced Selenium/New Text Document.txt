@@ -1,0 +1,8 @@
+repository: https://github.com/samayshwetha/GitPractice_Samay.git
+
+create token(for entire account)---->green icon(right  side)--->settings---->developer settings----personal access toke---token(classic)----generate new token---classic
+
+token : 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    / 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
+
+
+repository: https://github.com/samayshwetha/GitPractice_Samay1.git

@@ -1,0 +1,75 @@
+TDD - test case is written first and then vll check debug and pass the test script
+BDD - we ll write the scenarios first
+      no test case is required
+      anybody like PO, BA who has good knowledge on product can write the feature file
+      feature file will be in a layman language
+Cucumber is the tool for BDD approach by SmartBear
+cucumber framework consists of 3 parts:
+-> Feauture file - Scenarios are written in Gherkins Language
+-> Step Definition - every step in feature file will be mapped to program 
+-> Runner Class - Execution class to run the scripts
+==================================================================================
+
+In Cucumber all Gherkins keywords will be annotaions
+Given => Pre condition
+When => action
+Then => post condition
+And => break down the sentence or giving continuation 
+
+Feature File:- file extention is .feature
+               live document where scenarios will be written using Gherkin keywords
+ 	       Gherkins keywords include SCENARIO, GIVEN, AND, WHEN, THEN
+	       - readable format
+               - Normal English
+	       -> # is a comment in feature file
+=======================================================================================
+src/test/java 
+-> features package
+   -> Login.feature - feature file
+-> StepDefinitions package
+   -> LoginTest - class - definition class that binds feature file in executable format
+
+
+Login.feature
+Feature: Login feature
+
+Scenario: As a user I want to Login to application with valid credentials
+Given I will launch browser
+Given I will enter the URL
+When Login page is displayed i will enter username and password
+And I will click on Login
+Then I will validate wheather home page is displayed or not  
+
+-> if the steps are same for multiple scenarios in same feature file just copy as no new step definitions will not be genertated
+Runner class acts like a communition between feature file and step definitions
+
+-> Runner class consists of
+	@cucumberOptions(  
+	   features = "provide feature file path location"
+	   glue = "Step definition package name where feature file should bind the steps"
+	   dryRun = true/false => if true - browser will not be launched but the feature file and step definition will be binded and any missing step definition 
+                                 for a particular scenario/ step will be provided
+                    => if false - Browser will be launched and the feature file and step definition will be binded and any missing step definition 
+                                  for a particular scenario/ step will be provided
+           )                                 
+			            
+=============================================================================================
+Advantages of Using BDD Framework:
+1. BDD makes use of layman language hence its easy to understand
+2. BDD essentially concentrates more on required features hence development and testing 
+   of required features will be faster
+3. BDD helps in easy feature moditifcations
+4. Preferrable for short term projects.
+
+===========================================================================================
+Disadvantage of using BDD Framework:
+1. BDD requires high communication and collaboration amongst team 
+2. BDD does not work not well in an enclosed environment where team is split up in different
+   locations
+3. Poorly written tests can lead to higher test-maintenance costs
+4. Less Documentation
+5. Not suited for Long Term Projects. 
+
+
+
+

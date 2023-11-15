@@ -1,0 +1,829 @@
+
+Example program for drivermethods
+
+public class EmptyBrowser {
+
+	public static void main(String[] args) throws Throwable {
+		
+		WebDriver driver=new ChromeDriver();
+		
+		//launching the URL
+		driver.get("https://www.flipkart.com/");
+		//maximize screen
+		driver.manage().window().maximize();
+		Thread.sleep(1000);
+		//minimize screen
+		driver.manage().window().minimize();
+		
+		//printing the title of the WebPage
+	       String data = driver.getTitle();
+		System.out.println(data);
+		
+		//prints current URL of the Application
+		String URL = driver.getCurrentUrl();
+        System.out.println(URL);
+        
+        //prints sourcecode of the page
+        String source = driver.getPageSource();
+        System.out.println(source);
+        
+        //close method closes the current focusing window
+       // driver.close();
+        
+        //closes all the windows
+        driver.quit();
+        
+        
+	}
+
+}
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+                                       LOCATORS
+-->Locators are used to get the location of the WebElements in a webpage (html document).
+-->Based on the requirement we need to find the exact location of the webelements.
+-->All the locators are static methods of "By" class.
+    This "By" class is an abstract class,so it is not possible to create the object.(If we try we get                                                                                                 C.T.E)
+    Hence the only way to access the locators is by using *classname.method(locators--static methods)
+
+
+Types of Locators
+-----------------
+1) id()
+2) name()
+3) classname()
+4) linktext()
+5) partialLinkText()
+6) cssSelector()
+7) xpath()
+8) tagname()
+
+1. id(String idvalue)
+   ------------------
+-->It is locator(static method) present in a "By class",which is used to locate the webelement by using id attribute value.
+===========================================================================================================
+2. name(String namevalue)
+   ----------------------
+-->It is a locator(static method) present in a "By class",which is used to locate the webelement by using name attribute vaue.
+==========================================================================================================
+3. classname(String clasvalue)
+   ---------------------------
+-->It is a locator(static method) present in a "By class",which is used to locate the webelement by using class attribute value.
+Ex:- If class=abc def ghi jkl 123xyz     abc -
+2....class3,class4
+note**
+If class attribute is having spaces than it is considered as multiple classes.
+===========================================================================================================              
+4. linktext(String complete_visible_text)
+   ------------------------------------
+-->It is a locator(static method) present in a "By class",which is used to locate the webelement by using complete_visible_text of the link.
+=========================================================================================================
+5. partial linktext(String partial_visible_text)
+  ----------------------------------------------
+-->It is a locator(static method) present in a "By class",which is used to locate the webelement by using partial_visible_text of the link.
+=========================================================================================================++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+6. CSS selector(String selector value)
+   -----------------------------------
+
+-->It is a locator(static method) present in a "By class",which is used to locate the webelement by using any    attribute.
+  
+   To create css selector we have to follow syntax ie CSS Expression.
+a) [Attribute name='Attribute value']
+b) htmltag[Attribute name='Attribute value']
+
+
+
+There are even shortcuts to create CSS Expression for class and id.
+
+Ex1:-
+     [id='username']      shortcut is....       #username        input[id='username']   cssSelector(#username)
+input[id='username']      shortcut is....  input#username
+
+Ex2:-
+     [class='pwdfield']   shortcut is....       .pwdfield
+input[class='pwdfield']   shortcut is....  input.pwdfield
+
+
+
+Example program for cssSelector
+
+public class cssSelector {
+
+	public static void main(String[] args) {
+		WebDriver driver=new ChromeDriver();
+		driver.get("https://demo.actitime.com/login.do");
+		driver.manage().window().maximize();
+		
+		//cssSelector using id() [AttributeName='AttributeValue']
+	//	driver.findElement(By.cssSelector("[id='username']")).sendKeys("admin");
+		//driver.findElement(By.cssSelector("#username")).sendKeys("admin");
+
+		// htmltag[AttributeName='AttributeValue']
+	//	driver.findElement(By.cssSelector("input[id='username']")).sendKeys("admin");
+	    driver.findElement(By.cssSelector("input#username")).sendKeys("admin");
+		
+		//cssSector using classname()
+		   //[AttributeName='AttributeValue']
+     //driver.findElement(By.cssSelector("[class='textField pwdfield']")).sendKeys("manager");
+	   // driver.findElement(By.cssSelector(".pwdfield")).sendKeys("manager");
+		
+		//   htmltag[AttributeName='AttributeValue']
+	//	driver.findElement(By.cssSelector("input[class='textField pwdfield']")).sendKeys("manager");
+		driver.findElement(By.cssSelector("input.pwdfield")).sendKeys("manager");
+	}
+
+}
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+============================================================================================================== 
+
+note**
+-----
+     Priority of locators to use
+     ===========================
+a) For other than links
+   id()>name()>classname()>CSSselector()      If nothing available in html,we go for xpath to locate webelement
+
+b) For links
+   id()>name()>classname()>linktext()>partiallinktext()>CSSselector()
+
+===============================================================================================================
+
+7.Xpath()
+  -------
+-->It is a locator(static method) present in a "By class",which is used to locate the webelement by using any
+   html tag or any attribute or any visible text.
+
+
+                        XPATH:  
+                       =======
+It is a path of an element in html tree structure.
+
+In x-path we have 2 types
+1. Absolute Xpath
+2.Relative xpath
+
+Absolute Xpath:(xpath by position)
+---------------
+
+*** To traverse from parent to immediate child we make use of /(forward slash)
+
+1<html>
+1<body>
+1<div>
+1<input type="text" value="A">
+2<input type="text" value="B">
+</div>
+2<div>
+1<input type="text" value="C">
+2<input type="text" value="D">
+</div>
+</body>
+</html>
+
+
+WebElements        X=Path
+------------       -------
+A                  html/body/div[1]/input[1]
+B                  html/body/div[1]/input[2]
+C                  html/body/div[2]/input[1]    
+D                  html/body/div[2]/input[2]
+AB                 html/body/div[1]/input
+CD                 html/body/div[2]/input
+AC                 html/body/div/input[1]
+BD                 html/body/div/input[2]
+AD                 html/body/div[1]/input[1]|html/body/div[2]/input[2]
+BC                 html/body/div[1]/input[2]|html/body/div[2]/input[1]
+ABCD               html/body/div/input
+ABC                html/body/div[1]/input|html/body/div[2]/input[1]
+BDC                html/body/div[1]/input[2]|html/body/div[2]/input
+
+
+Note: In order to write multiple xpath we use pipline operator(|)
+
+Writing the xpath expression from beginning of the html tree till element is called as Absolute x-path.
+
+Note:For n number of tags we can use n-1 '/' single forward slash
+
+
+
+b)Relative Xpath
+  ---------------
+-->// -->Double forward slash   (Traverse from parent to any child) traverse entire html page
+-->/  -->Single forward slash   (Traverse from parent to immediate child)
+
+To follow this kind of approach also we required html tree structure which is time consuming and different.
+
+In order to overcome this approach,there are several cases of xpath which makes relative xpath more accurate and efficient.
+
+The basic cases of xpath are:-
+                           1) Xpath by attribute
+                           2) Xpath by visibleText
+                           3) Xpath contains Attribute
+                           4) Xpath contains VisibleText
+
+Syntax for above basic cases of xpath are--
+------------------------------------------
+
+1) Xpath by attribute
+   ------------------
+  //html tag[@Attributename='Attribute value']      @->Search given value only in attribute.
+
+2) Xpath by VisibleText
+   --------------------
+  //html tag[text()='Complete_visible_text']         text()->It is xpath function which search given value only                                                               in visible text.
+3) Xpath by contains Attribute
+   ---------------------------
+  //html tag[contains(@Attribute name,'Partial Attribute Value')]
+
+4) Xpath by contains VisibleText
+   -----------------------------
+  //html tag[contains(text(),'partial visible text')]
+
+Example program for xpath
+
+Example:-1
+************
+public class Xpath {
+
+	public static void main(String[] args) throws Throwable {
+	
+		WebDriver driver=new ChromeDriver();
+		driver.get("https://demo.actitime.com/login.do");
+		driver.manage().window().maximize();
+		
+		//xpath by Attribute
+             //htmltag[@AttributeName='AttributeValue']
+	driver.findElement(By.xpath("//input[@placeholder='Username']")).sendKeys("admin");
+	//	driver.findElement(By.xpath("//input[@placeholder='Password']")).sendKeys("manager");
+		
+		//xpath by visibleText()
+		    //htmltag[text()='AttributeValue']
+	//	driver.findElement(By.xpath("//div[text()='Login ']")).click();
+		//driver.findElement(By.xpath("//div[.='Login ']")).click();
+		
+		//xpath by contains Attribute
+		  //htmltag[contains(@AttributeNAme,'AttributeValue')]
+		driver.findElement(By.xpath("//input[contains(@class,'pwdfield')]")).sendKeys("manager");
+	driver.findElement(By.xpath("//td[contains(@id,'loginB')]")).click();
+	
+	Thread.sleep(1000);
+	//xpath by visible text
+	//driver.findElement(By.xpath("//a[text()='View Time-Track']")).click();
+	
+	//xpath by contains visible text
+	  //htmltag[contains(text(),'AttributeValue')]
+	driver.findElement(By.xpath("//a[contains(text(),'Vie')]")).click();
+	Thread.sleep(1000);
+	driver.findElement(By.xpath("//a[contains(text(),'Ap')]")).click();
+	
+	}
+
+}
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Example:-2
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.edge.EdgeDriver;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+
+public class Xpath {
+
+	public static void main(String[] args) throws Throwable {
+
+		WebDriver driver;
+		WebDriverManager.edgedriver().setup();
+		driver=new EdgeDriver();
+		//driver.get("https://demo.actitime.com/login.do");
+		
+		/*//xpath by Attribute
+	//syntax---->//htmltag[@AttributeNAme='AttributeValue']
+     //driver.findElement(By.xpath("//input[@name='username']")).sendKeys("admin");
+	driver.findElement(By.xpath("//input[@placeholder='Username']")).sendKeys("admin");
+	driver.findElement(By.xpath("//input[@class='textField pwdfield']")).sendKeys("manager");
+	Thread.sleep(1000);
+	
+	//syntax---->//htmltag[text()='AttributeValue']
+	driver.findElement(By.xpath("//div[text()='Login ']")).click();
+	Thread.sleep(1000);
+	driver.findElement(By.xpath("//a[text()='Approve Time-Track']")).click();*/
+	
+			//driver.get("https://www.flipkart.com/");
+			//driver.findElement(By.xpath("//button[.='✕']")).click();
+		//driver.findElement(By.xpath("//button[text()='✕']")).click();
+	/*	driver.findElement(By.xpath("//div[text()='Fashion']")).click();*/
+		/*driver.get("https://www.amazon.in/");
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("//a[@data-csa-c-content-id='nav_cs_gb']")).click();*/
+}
+
+}
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Example:-3
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.edge.EdgeDriver;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+
+public class XpathConti {
+
+	public static void main(String[] args) throws Throwable {
+		WebDriver driver;
+		WebDriverManager.edgedriver().setup();
+		driver=new EdgeDriver();
+		driver.manage().window().maximize();
+		
+	//	Example:-1
+	/*	driver.get("https://demo.actitime.com/login.do");
+       //xpath contains Attribute
+		//syntax--->//htmltag[contains(@AttributeName,'AttributeValue')]
+		driver.findElement(By.xpath("//input[contains(@id,'username')]")).sendKeys("admin");*/
+		
+		//Example:-2
+		//xpath by contains Attribute
+		//syntax----->//htmltag[contains(@AttributeName,'AttributeValue')]
+		/*	driver.findElement(By.xpath("//input[contains(@id,'username')]")).sendKeys("admin");
+		driver.findElement(By.xpath("//input[contains(@class,'pwdfield')]")).sendKeys("manager");*/
+		
+		//Example:-3
+		/*driver.get("https://www.facebook.com/");
+		driver.findElement(By.xpath("//input[contains(@placeholder,'E')]")).sendKeys("48565484");*/
+		
+		//xpath by contains visibleText()
+		//syntax:---->//htmltag[contains(text(),'AttributeValue')]
+		//Example:-1
+		driver.get("https://demo.actitime.com/login.do");
+		/*driver.findElement(By.xpath("//input[contains(@id,'username')]")).sendKeys("admin");
+		driver.findElement(By.xpath("//input[contains(@class,'pwdfield')]")).sendKeys("manager");
+		driver.findElement(By.xpath("//div[text()='Login ']")).click();
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("//a[contains(text(),'Vie')]")).click();*/
+	
+		//Example:-2
+		/*driver.get("https://www.flipkart.com/");
+		driver.findElement(By.xpath("//button[contains(.,'✕')]")).click();
+	driver.findElement(By.xpath("//div[contains(text(),'Gr')]")).click();*/
+		
+		//Multiple xpath
+		//Using And nd Or opertor
+		//driver.get("https://demo.actitime.com/login.do");
+		//driver.findElement(By.xpath("//input[@name='username' and @id='username']")).sendKeys("admin");
+		//driver.findElement(By.xpath("//input[@placeholder='Password' or @id='pwd']")).sendKeys("manager");
+	}
+
+}
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Xpath with multiple attributes:
+-------------------------------
+
+And
+a b  y
+0 0  0
+0 1  0
+1 0  0
+1 1  1
+
+OR
+
+a b  y
+0 0  0
+0 1  1
+1 0  1
+1 1  1
+
+In order to write multiple Attributes in a single x-path expression we use 'AND' / 'OR' operator
+
+Syntax:
+-------
+//tagName[@AttributeName='AttributeValue' and @AttributeName='AttributeValue']
+//tagName[@AttributeName='AttributeValue' or @AttributeName='AttributeValue']
+
+AND--> both the locator should be correct
+OR---> any one of the locator should be correct
+
+Ex://input[@type='text' or @id='email']
+Ex://input[@type='text' and @id='email']
+
+//using multipleAttribute
+        driver.findElement(By.xpath("//input[@id=\"username\" and @class=\"textField\"]")).sendKeys("admin");
+	driver.findElement(By.xpath("//input[@placeholder=\"Password\" or @name=\"pwd\"]")).sendKeys("manager");
+
+X-Path by Text/Text() Function
+------------------------------
+1. when there are no attributes we go for text() function
+2. when the locator is matching with multiple attributes we go for text() function
+
+Syntax:
+-------
+
+//htmltag[text()='textValue']
+      or
+//htmltag[.='textValue']
+
+
+Text() function with multiple attributes
+========================================
+
+Syntax:
+
+//htmltag[text()='TextValue' and @AttributeName='AttributeValue']
+
+driver.findElement(By.xpath("//a[text()='View Time-Track' and @class='item']")).click();
+
+
+Handling Partially dynamic Element.  (contains)
+===================================
+In order to handle partially dynamic element we go for Contains method and in order to optimize the path by removing numbers,extra spaces
+
+Synatax:
+--------
+
+//htmltag[contains(text(),'textValue')]
+       or
+//htmltag[contains(.,'textValue')]
+
+Handling Completly dynamic elements:
+===================================
+
+In order to handle completly dynamic elements we go for xpath by Traversing or Independent Dependent xpath.
+                                                                 ----------   ----------------------
+/ --> Traversing from parent to child
+/..  ->Trversing from child to Immediate parent
+
+Synatx:     //htmltag[.='TextValue']/../htmltag[index]
+-------
+<html>
+<body>
+<table border="1">
+<tbody>
+<tr>
+<td>1</td>
+<td>Kanthara</td>
+<td>10cr</td>
+</tr>
+<tr>
+<td>2</td>
+<td>KGF2</td>
+<td>25cr</td>
+</tr>
+<tr>
+<td>3</td>
+<td>RRR</td>
+<td>20</td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>
+
+
+Tree Structure:
+--------------
+html              1
+ body             1
+  table           1
+   tbody          1
+    tr            1
+     td slno      1
+     td mname     2
+     td coll      3
+
+***
+In order to handle completly dynamic elements we must fallow 3 steps
+step1: First locate the static element
+step2: From the static element move to immediate parent
+step3: From the parent element locate the dynamic element
+
+Write a xpath to locate the movie collection of kantara
+=//td[.='Kanthara']/../td[3]
+
+write a xpath to locate movie collection of RRR
+=//td[.='RRR']/../td[3]
+
+write a xpath to locate movie collection of KGF2
+=//td[.='KGF2']/../td[3]
+
+
+Sibling Function:
+----------------
+1.In order to move from 1 child to another child we go for sibling function
+2.In siblings() we have 2 types
+  1.following-sibling
+  2.preceding-sibling
+
+There are 2 types of terversing
+1.Forward traversing: Navigating from parent to child element by using / and // forward slash
+2.Backward traversing: traversing from child to immediate parent by using /..
+
+following-sibling:
+-----------------
+  If an element is present on the rightside of the table and rightbelow the static element in html tree structure is called as following sibling.
+
+ syntax: /following-sibling::tag
+           
+      ::->scope resolution operator
+
+write a xpath to locate the movie collection of kantara
+=//td[.='Kanthara']/following-sibling::td[1]
+
+write a xpath to locate movie collection of RRR
+//td[.='RRR']/following-sibling::td[1]
+
+slno to collection
+//td[text()='1']/following-sibling::td[text()='10cr']
+
+
+preceding sibling:
+------------------
+If the element is present in the leftside of the table and starts(present) right before the static element in the html tree structure is called as preceding-sibling.
+
+synatx:
+------- 
+/preceding-sibling::tag
+
+write a xpath locate the serial number of the movie kgf2.
+=//td[.='KGF2']/preceding-sibling::td[1]
+
+write a xpath locate the serial number of the movie kantara.
+=//td[.='Kanthara']/preceding-sibling::td[1]
+
+
+
+
+Ancestor:
+---------
+To traverse from child to any parent we go for ancestor
+synatx: /ancestor::tag
+
+Ex:
+
+html
+ body
+  div
+   input
+
+Write a xpath to locate the body on the above html structure
+//input/ancestor::body
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Group by index or Grouped Index:
+=================================
+
+Even after using sibling function ,xpath by traversing,xpath by multiple attributes the count is not reduced to 1, in this case we use group by index.
+
+Synatx: (xpath)[index]
+           |
+       xpath expression
+
+Write a xpath to locate 1 text box
+=(//input[@id='a1'])[1]
+
+Write a xpath to locate documentation of selenium webpage
+=//a[.='documentation'][1] 
+
+checkbox:
+----------
+
+<html>
+<body>
+<input type="checkbox"><br><br>
+<input type="checkbox"><br><br>
+<input type="checkbox"><br><br>
+<input type="checkbox"><br><br>
+<input type="checkbox"><br><br>
+<input type="checkbox">
+</body>
+</html>
+
+webElement               xpath
+-----------              -----
+1st checkBox             //input[1]
+2nd checkbox             //input[2]
+5th checkbox             //input[5]
+last checkbox            (//input)[last()]
+last but one checkbox    (//input)[last()-1]
+2nd 3rd and 4th checkbox //input[2]|//input[3]|//input[4]
+only the 3rd position    (//input)[position()=3]
+checkbox                 (//input)[position()>3]
+checkbox in even posi    (//input)[position() mod 2=0]
+checkbox in odd posi     (//input)[position() mod 2=1]
+----------------------------------------------------------------------------------------------------------------------------------------------------
+Important xpath:-
+
+capture all links----->//a
+capture all images---->//img
+capture all tables---->//table
+capture all list/dropdown--->//select
+capture all textboxes---->//input[@type='text']
+capture all checkboxes---->//input[@type='checkbox']
+capture all radiobuttons---->//input[@type='radio']
+
+Difference between xpath and css-selector
+-----------------------------------------
+
+             xpath                                           css
+          ---------                                      ------------
+
+1.In xpath we search elemnt in all            search element only in single direction
+  direction
+
+2.xpath is slower                             css is fast when compared to xpath
+
+3.In xpath . indicates text() function       In css . indicates class
+
+4.In xpath we can handle dynamic elemnts     In css we can't handle dynamic elemnts
+
+5.In xpath we can use multiple attributes    In css we can't use multiple attributes
+
+6.In xpath we have sibling() function        In css we don't have sibling function.
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+Programs
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class Loctors {
+
+	public static void main(String[] args) throws Throwable {
+	
+		//Launching Browser
+		WebDriver driver=new ChromeDriver();
+		
+		//Launching Application
+		driver.get("https://demo.actitime.com/login.do");
+		
+		//MAximizing Screen
+		driver.manage().window().maximize();
+		
+	/*//Passing the VAlue to UserTextField using id() Locator
+	driver.findElement(By.id("username")).sendKeys("admin");
+		
+		Thread.sleep(2000);
+	driver.findElement(By.name("pwd")).sendKeys("manager");
+
+	driver.findElement(By.id("loginButtonContainer")).click();*/
+	
+	driver.findElement(By.className("textField")).sendKeys("admin");
+	Thread.sleep(1000);
+	//driver.findElement(By.className("textField pwdfield")).sendKeys("manager");
+	
+	driver.findElement(By.className("pwdfield")).sendKeys("manager");
+	Thread.sleep(1000);
+	//driver.findElement(By.id("keepLoggedInCheckBox")).click();
+	
+	driver.findElement(By.name("remember")).click();
+	
+	driver.findElement(By.className("initial")).click();
+	
+	Thread.sleep(1000);
+	
+	//driver.findElement(By.linkText("View Time-Track")).click();
+	//driver.findElement(By.linkText("Lock Time-Track")).click();
+	
+	driver.findElement(By.partialLinkText("View T")).click();
+	}
+
+}
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+
+public class PraticePrg {
+
+	public static void main(String[] args) throws Throwable {
+		
+		WebDriverManager.chromedriver().setup();
+		WebDriver driver=new ChromeDriver();
+
+		driver.get("https://www.amazon.in/");
+		//driver.findElement(By.id("twotabsearchtextbox")).sendKeys("puma");
+		
+		Thread.sleep(1000);
+		//driver.findElement(By.name("field-keywords")).sendKeys("bluetooth");
+		//driver.findElement(By.linkText("Today's Deals")).click();
+	//driver.findElement(By.partialLinkText("Today's")).click();
+		//driver.findElement(By.linkText("Today's Deals")).click();
+		driver.findElement(By.linkText("Mobiles")).click();
+	}
+
+}
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class CssSelector {
+
+	public static void main(String[] args) {
+		
+		WebDriver driver=new ChromeDriver();
+		driver.get("https://demo.actitime.com/login.do");
+        driver.manage().window().maximize();
+
+        //cssSelector() 
+        //syntax1:-[AttributeName='AttributeValue']
+    //driver.findElement(By.cssSelector("[id='username']")).sendKeys("admin");
+	//driver.findElement(By.cssSelector("[placeholder='Username']")).sendKeys("admin");
+	
+     //syntax2:-htmltag[AttributeName='AttributeValue']
+	//driver.findElement(By.cssSelector("input[class='textField pwdfield']")).sendKeys("manager");
+	//driver.findElement(By.cssSelector("a[class='initial']")).click();
+	
+        //syntax3:-htmltag#AttributeValue
+	driver.findElement(By.cssSelector("input#username")).sendKeys("admin");
+	
+	//syntax4:-htmltag.AttributeValue
+	driver.findElement(By.cssSelector("input.pwdfield")).sendKeys("manager");
+	//driver.findElement(By.cssSelector("input[class='textField pwdfield']")).sendKeys("manager");
+	//driver.findElement(By.cssSelector("td#loginButtonContainer")).click();
+	driver.findElement(By.xpath("(//div[contains(text(),'Login ')])[1]")).click();
+	
+	}
+	
+
+}
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+
+public class Xpath {
+
+	public static void main(String[] args) throws Throwable {
+		
+		WebDriver driver=new ChromeDriver();
+		driver.get("https://demo.actitime.com/login.do");
+
+		//syntax1:-//htmktag[@AttributeName='AttributeValue']
+		driver.findElement(By.xpath("//input[@placeholder='Username']")).sendKeys("admin");
+		
+		driver.findElement(By.xpath("//input[contains(@class,'p')]")).sendKeys("manager");
+		
+	//driver.findElement(By.xpath("//input[@class='textField pwdfield']")).sendKeys("manager");
+	driver.findElement(By.xpath("//a[@id='loginButton']")).click();
+	
+    Thread.sleep(2000);
+    //syntax:-//htmltag[text()='AttributeValue']
+//driver.findElement(By.xpath("//a[text()='Lock Time-Track']")).click();
+
+    driver.findElement(By.xpath("//a[contains(text(),'App')]")).click();	
+	}
+
+}
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class Assignment1 {
+
+	public static void main(String[] args) throws Throwable {
+		
+		WebDriver driver=new ChromeDriver();
+
+		driver.get("https://www.flipkart.com/");
+		driver.manage().window().maximize();
+		driver.findElement(By.xpath("//button[text()='✕']")).click();
+		
+		driver.findElement(By.name("q")).sendKeys("iphone");
+		driver.findElement(By.cssSelector("[type='submit']")).click();
+		
+		/*WebElement data = driver.findElement(By.name("q"));
+		data.sendKeys("iphone");
+		//data.submit();*/
+		
+		Thread.sleep(2000);
+		/*String value = driver.findElement(By.xpath("//div[text()='APPLE iPhone 13 (Midnight, 128 GB)']
+		/../../div/div/div[@class='_25b18c']")).getText();
+	System.out.println(value);*/
+	
+	/*String data1 = driver.findElement(By.xpath("//div[text()='APPLE iPhone 13 (Midnight, 128 GB)']"
+			+ "/../../div/div/div/div[@class='_30jeq3 _1_WHN1']")).getText();
+	System.out.println(data1);*/
+		
+	String price = driver.findElement(By.xpath("//div[text()='APPLE iPhone 13 (Midnight, 128 GB)']/../following-sibling::div//div[@class='_30jeq3 _1_WHN1']")).getText();
+	System.out.println(price);
+	}
+
+}
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+

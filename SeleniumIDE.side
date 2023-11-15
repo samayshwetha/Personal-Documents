@@ -1,0 +1,108 @@
+{
+  "id": "09916fcd-1659-40e9-8845-0b4cb997cc19",
+  "version": "2.0",
+  "name": "SeleniumIDE",
+  "url": "https://demo.actitime.com",
+  "tests": [{
+    "id": "270cb3b8-9a54-4ecd-b31e-68a246ef5576",
+    "name": "Script1_ActiTime",
+    "commands": [{
+      "id": "280a16cf-3f81-4af7-83e2-573cb1544cb5",
+      "comment": "",
+      "command": "open",
+      "target": "/login.do",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "27a2cbe4-d794-4201-9862-52ee3f880dd1",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1936x1056",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "a6a65a2c-a521-49df-a2f4-c83b873387fe",
+      "comment": "",
+      "command": "type",
+      "target": "id=username",
+      "targets": [
+        ["id=username", "id"],
+        ["name=username", "name"],
+        ["css=#username", "css:finder"],
+        ["xpath=//input[@id='username']", "xpath:attributes"],
+        ["xpath=//table[@id='loginFormContainer']/tbody/tr/td/table/tbody/tr/td/input", "xpath:idRelative"],
+        ["xpath=//td/input", "xpath:position"]
+      ],
+      "value": "admin"
+    }, {
+      "id": "e812f692-3afd-414c-a51f-5b58b0918b4a",
+      "comment": "",
+      "command": "click",
+      "target": "name=pwd",
+      "targets": [
+        ["name=pwd", "name"],
+        ["css=.pwdfield", "css:finder"],
+        ["xpath=//input[@name='pwd']", "xpath:attributes"],
+        ["xpath=//table[@id='loginFormContainer']/tbody/tr/td/table/tbody/tr[2]/td/input", "xpath:idRelative"],
+        ["xpath=//tr[2]/td/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "c1a8f826-a88c-44a4-b2bc-a25982592ca6",
+      "comment": "",
+      "command": "type",
+      "target": "name=pwd",
+      "targets": [
+        ["name=pwd", "name"],
+        ["css=.pwdfield", "css:finder"],
+        ["xpath=//input[@name='pwd']", "xpath:attributes"],
+        ["xpath=//table[@id='loginFormContainer']/tbody/tr/td/table/tbody/tr[2]/td/input", "xpath:idRelative"],
+        ["xpath=//tr[2]/td/input", "xpath:position"]
+      ],
+      "value": "manager"
+    }, {
+      "id": "b223b768-4557-45b1-93c1-0f618067108a",
+      "comment": "",
+      "command": "click",
+      "target": "css=#loginButton > div",
+      "targets": [
+        ["css=#loginButton > div", "css:finder"],
+        ["xpath=//a[@id='loginButton']/div", "xpath:idRelative"],
+        ["xpath=//a/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "01c12fa8-1692-452e-8159-ac33984c43c6",
+      "comment": "",
+      "command": "click",
+      "target": "css=.tasks > .label",
+      "targets": [
+        ["css=.tasks > .label", "css:finder"],
+        ["xpath=//table[@id='topnav']/tbody/tr/td[4]/a/div", "xpath:idRelative"],
+        ["xpath=//td[4]/a/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "2408fad1-53d6-41b9-a2a6-755e297f519d",
+      "comment": "",
+      "command": "click",
+      "target": "css=.users > .label",
+      "targets": [
+        ["css=.users > .label", "css:finder"],
+        ["xpath=//table[@id='topnav']/tbody/tr/td[6]/a/div", "xpath:idRelative"],
+        ["xpath=//td[6]/a/div", "xpath:position"]
+      ],
+      "value": ""
+    }]
+  }],
+  "suites": [{
+    "id": "3376d1e8-676f-4d5a-9b67-1ed5da9c35db",
+    "name": "Default Suite",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": ["270cb3b8-9a54-4ecd-b31e-68a246ef5576"]
+  }],
+  "urls": ["https://demo.actitime.com/"],
+  "plugins": []
+}

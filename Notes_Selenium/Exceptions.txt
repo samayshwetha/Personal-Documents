@@ -1,0 +1,57 @@
+Different Types of selenium Exceptions: (you will get only RunTime Exceptions in Selenium):
+1.	WebDriverException: The base exception class for all WebDriver-related exceptions.
+2.	TimeoutException: Thrown when a timeout occurs while waiting for an element or condition.
+3.	NoSuchElementException: Thrown when an element cannot be found in the DOM.
+4.	StaleElementReferenceException: Thrown when a previously referenced element is no longer attached to the DOM.
+5.	ElementNotVisibleException: Thrown when an element is present in the DOM but not visible on the page.
+6.	ElementNotSelectableException: Thrown when trying to interact with an element that is not selectable, such as a disabled checkbox.
+7.	InvalidElementStateException: Thrown when an element is in an invalid state for the requested operation, e.g., trying to click on a non-clickable element.
+8.	NoSuchWindowException: Thrown when a window or tab is not found.
+9.	NoSuchFrameException: Thrown when a frame or iframe is not found.
+10.	UnhandledAlertException: Thrown when an unexpected alert is present.
+11.	UnexpectedTagNameException: Thrown when a WebElement does not belong to the specified tag name, e.g., finding a div element when expecting an input element.
+12.	InvalidSelectorException: Thrown when an invalid selector is used to locate an element.
+13.	ElementClickInterceptedException: Thrown when another element is covering the target element, preventing it from being clicked.
+14.	MoveTargetOutOfBoundsException: Thrown when the target of a move action is outside the visible area of the browser viewport.
+15.	NoSuchAttributeException: Thrown when an element does not have the requested attribute.
+16.	InvalidCookieDomainException: Thrown when attempting to add a cookie with an invalid domain.
+17.	InvalidCoordinatesException: Thrown when the coordinates provided to an interaction method are invalid.
+18.	NoAlertPresentException: Thrown when there is no alert present to switch to.
+19.	ScriptTimeoutException: Thrown when the script execution exceeds the specified timeout.
+20.	SessionNotCreatedException: Thrown when a new session cannot be created.
+21.	UnhandledAlertException: Thrown when an unhandled alert is encountered during the test execution.
+22.	UnsupportedCommandException: Thrown when an unsupported command is used with the WebDriver.
+23.	WebDriverTimeoutException: Thrown when a timeout occurs while waiting for a WebDriver command to complete.
+24.	ElementNotInteractableException: Thrown when an element is present on the page but is not in an interactable state.
+25.	ImeActivationFailedException: Thrown when activating the input method editor (IME) fails.
+26.	ScreenshotException: Thrown when an error occurs while capturing a screenshot.
+27.	ElementNotDisplayedException: Thrown when an element is not displayed on the page.
+28.	ElementNotEnabledException: Thrown when an element is disabled and cannot be interacted with.
+29.	InvalidElementSizeException: Thrown when the size of an element is not valid or cannot be determined.
+30.	InvalidSelectorException: Thrown when an invalid selector is used to locate an element.
+31.	NoAlertOpenException: Thrown when attempting to interact with an alert that is not open.
+32.	NoSuchContextException: Thrown when the requested context (e.g., window, frame) does not exist.
+33.	NoSuchSessionException: Thrown when attempting to perform an action on a nonexistent session.
+34.	UnhandledWebDriverException: Thrown when an unhandled exception specific to the WebDriver implementation occurs.
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Differences between TestData and CommonData
+TestData	CommonData
+Test data refers to the specific data values or inputs that are required to execute test cases.
+Common data refers to the shared or common set of data that is required by multiple test cases or test scenarios.
+
+Test data is specific to individual test cases and is used to verify the expected behavior or outcome.
+Common data is not specific to individual test cases but is used across multiple test cases or test suites.
+
+Test data is often unique and specific to each test case and is designed to cover different scenarios and test conditions.	
+Common data often includes values that remain constant throughout the execution of multiple test cases, such as usernames, passwords, URLs, configuration settings, environment variables, or any other data that is shared among different tests.
+
+Test data is typically defined within the test script or fetched from external data sources  such as Excel files, CSV files, databases, or JSON files.
+Common data is typically stored in separate files or configuration files that can be accessed by multiple test scripts or test suites.
+
+propertyFile etc..
+Test data helps in validating the correctness and reliability of the application under test.	
+Common data helps in promoting reusability, reducing duplication, and centralizing the management of shared data across the test automation framework.

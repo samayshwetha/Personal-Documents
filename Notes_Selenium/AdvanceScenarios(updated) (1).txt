@@ -1,0 +1,1169 @@
+<html>
+<body>
+<input type="text" id="t1" value="abcd" disabled>
+</body>
+</html>
+
+
+public void m1()
+	{
+	WebDriver driver=new ChromeDriver();
+	driver.manage().window().maximize();
+	driver.get("file:///D:/old%20lap%20Docs/selenium/html%20codes/disabletext.html");
+	WebElement element = driver.findElement(By.id("t1"));
+	boolean button = element.isEnabled();
+	if(button)
+	{
+		System.out.println("test case is pass");
+	}else {
+		System.out.println("test case is fail");
+	}
+	}
+}
+
+
+o/p: is testcase is fail because it is disabled
+
+Note:
+If you try to send data inside a text disabled textFiled you will get an exception called ->ElementNotInteractableException->Selenium runtime
+
+
+
+======================================================================================
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+                                        SECTION - 2
+                                       ==============
+ADVANCE SCENARIO IN AUTOMATION
+
+1) Multiple WebElement Handling
+   ----------------------------
+-> Generally we will use findelement() to capture the required element,But findelement() can return only first matched element 
+i.e findelement() is used to deal with single element at a time.
+
+So,if we want to capture all matched element of given locator,than we have to prefer findelements().
+
+-->findelements() returns List<WebElement> and it is used to handle multiple WebElement at a time.
+
+for understanding purpose
+-------------------------
+for each loop syntax
+                       for(Type of data   reference:from where to fetch the data)
+                       {
+                         }
+
+Ex:-
+       for(WebElement wb:allLinks)                                 
+       {
+         } 
+
+Example Program:-
+
+import java.util.List;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.edge.EdgeDriver;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+
+public class HandlingMulitpleWebElements {
+
+	public static void main(String[] args) {
+		
+		WebDriver driver;
+		WebDriverManager.edgedriver().setup();
+		driver=new EdgeDriver();
+		driver.manage().window().maximize();
+		driver.get("https://www.flipkart.com/");
+		driver.findElement(By.xpath("//button[contains(.,'✕')]")).click();
+		List<WebElement> allLinks = driver.findElements(By.xpath("//a"));//366
+	int count=0;
+	for(WebElement link:allLinks)//1 //2
+	{
+		System.out.println(link.getText());//1 //2
+		count++;//1 //2-----------------//366
+	}
+	System.out.println("Total num of links:"+count);
+	}
+
+}
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+
+2) Auto Suggestion Handling
+   ------------------------
+-->After providing some input in search bar we will get search suggestion which is called as 
+Autosuggestion.
+
+Example Program:-
+
+import java.util.List;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.edge.EdgeDriver;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+
+public class AutoSuggestion {
+
+	public static void main(String[] args) throws Throwable {
+
+		WebDriver driver;
+		driver=new ChromeDriver();
+		driver.manage().window().maximize();
+		
+
+driver.get("https://www.flipkart.com/");
+driver.findElement(By.xpath("//button[contains(.,'✕')]")).click();
+		
+WebElement data = driver.findElement(By.name("q"));
+data.sendKeys("puma");
+Thread.sleep(4000);
+List<WebElement> suggestion = driver.findElements(By.tagName("li"));//1of8 //puma shoes
+                     //8
+for(WebElement wb:suggestion)
+{
+	String text = wb.getText();
+	if(text.contains(" shoes"))
+	{
+		Thread.sleep(2000);
+		wb.click();
+		break;
+	}
+}   
+}}
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Example Program 2:-
+
+import java.util.List;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.edge.EdgeDriver;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+
+public class AutoSuggestion {
+
+	public static void main(String[] args) throws Throwable {
+
+		WebDriver driver;
+		driver=new ChromeDriver();
+		driver.manage().window().maximize();
+		driver.get("https://www.flipkart.com/");
+driver.findElement(By.xpath("//button[contains(.,'✕')]")).click();
+		
+WebElement data = driver.findElement(By.name("q"));
+data.sendKeys("bluetooth");
+Thread.sleep(4000);
+List<WebElement> suggestion = driver.findElements(By.xpath("//ul[@class='col-12-12 _1MRYA1 _38UFBk']/li"));//1of8 //puma shoes
+                     //8
+for(WebElement wb:suggestion)
+{
+	String text = wb.getText();
+	if(text.contains(" headset boat"))
+	{
+		Thread.sleep(2000);
+		wb.click();
+		break;
+}
+}
+}
+}
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Example program:-3
+
+import java.util.List;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class AutoSuggestionAmazonEx {
+
+	public static void main(String[] args) throws Throwable {
+		WebDriver driver=new ChromeDriver();
+		driver.manage().window().maximize();
+driver.get("https://www.amazon.in/");
+//driver.manage().window().minimize();
+driver.findElement(By.id("twotabsearchtextbox")).sendKeys("puma");
+Thread.sleep(2000);
+List<WebElement> allsuggestion = driver.findElements(By.xpath("//div[@class='left-pane-results-container']/div//span"));
+	
+	for(WebElement wb:allsuggestion)
+	{
+		String text = wb.getText();
+		System.out.println(text);
+		if(text.equalsIgnoreCase("flip flops for men"))
+		{
+			wb.click();
+			break;
+		}
+	}
+	}
+
+}
+
+output
+:-SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+SLF4J: Defaulting to no-operation (NOP) logger implementation
+SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+Starting ChromeDriver 113.0.5672.63 (0e1a4471d5ae5bf128b1bd8f4d627c8cbd55f70c-refs/branch-heads/5672@{#912}) on port 19933
+Only local connections are allowed.
+Please see https://chromedriver.chromium.org/security-considerations for suggestions on keeping ChromeDriver safe.
+ChromeDriver was started successfully.
+shoes for men
+shoes for women
+slippers for men
+shoes
+sneakers for men
+t shirts for men
+flip flops for men
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+3) SVG Element Handling
+   --------------------
+-->SVG stands for scalar vector graphics.
+-->Its a older style to create an image in the webpage and this kind of elements are generated by xml language.
+(About xml we will discuss in future class,its one of the language like json.)
+
+note**
+     Normal approach of xpath is not applicable on svg element.
+     we have different xpath for svg elements.
+
+a) Xpath to capture all svg element in webpage
+   --------------------------------------------
+   //*[name()='svg']
+
+b) Xpath to capture particular svg image
+   -------------------------------------
+   Example:-  if we have like this when we inspect   <svg class="gb_Ue">
+   
+   Xpath for above example is::
+                           //*[name()='svg' and @class='gb_Ue']
+
+Example program:-
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.edge.EdgeDriver;
+
+public class SvgElement {
+
+	public static void main(String[] args) {
+		
+		WebDriver driver=new EdgeDriver();
+		
+driver.get("https://www.google.com/");
+//svg:-Scalable vector Graphics
+//syntax:-//*[name()='svg']
+//driver.findElement(By.xpath("//*[name()='svg' and @class='gb_h']")).click();
+	driver.findElement(By.cssSelector("svg[class='gb_h'] ")).click();
+	}
+	}
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+4) KeyBoard StrokeHandling
+   -----------------------
+To handle keyboard strokes we have two approach :-
+                                                   a) By using keys class.
+                                                   b) By using robot class.
+a) By using Keys class
+   -------------------
+Keys is a special class present in selenium library to handle the keyboard action.
+-->Keys class can be used in  sendkeys().
+lets see how with the few examples..
+       
+Example in Eclipse
+
+Limitations of Keys class
+-------------------------
+->It will not support desktop applications.
+->It dont support combined keyboard actions.
+
+Example program1:-
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class KeysClass {
+
+	public static void main(String[] args) {
+		
+		WebDriver driver=new ChromeDriver();
+	//	driver.get("https://demo.actitime.com/login.do");
+		//case:-1
+		/*driver.findElement(By.id("username")).sendKeys("admin");
+		WebElement password = driver.findElement(By.name("pwd"));
+		password.sendKeys("manager");
+		password.sendKeys(Keys.ENTER);*/
+		
+		//case:-2
+		//driver.findElement(By.id("username")).sendKeys("admin");
+		//driver.findElement(By.name("pwd")).sendKeys("manager",Keys.ENTER);
+		
+		//case:-3
+	//	driver.findElement(By.id("username")).sendKeys("admin",Keys.TAB,"manager",Keys.ENTER);
+	
+	
+		//case:-4
+		//driver.findElement(By.id("username")).sendKeys("admin",Keys.TAB,"manager",Keys.TAB,Keys.SPACE);
+	
+}
+
+}
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Example Program:-2
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+
+public class KeysClassEx2 {
+
+	public static void main(String[] args) {
+		
+		WebDriver driver;
+		WebDriverManager.chromedriver().setup();
+		driver=new ChromeDriver();
+		
+		//WebDriver driver=new ChromeDriver();
+		driver.get("https://www.flipkart.com/");
+		driver.findElement(By.xpath("//button[contains(.,'✕')]")).click();
+driver.findElement(By.name("q")).sendKeys("puma",Keys.ENTER);
+
+	}
+}
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Example for AutoSuggestion
+
+public class AutoSuggestionAmazon {
+
+	public static void main(String[] args) throws Throwable {
+		WebDriver driver=new ChromeDriver();
+		driver.get("https://www.amazon.in/");
+	//	driver.findElement(By.xpath("//input[@id='twotabsearchtextbox']")).sendKeys("puma");
+
+		 WebElement searchField = driver.findElement(By.id("twotabsearchtextbox"));
+	        searchField.sendKeys("bluetooth");
+	        
+	       Thread.sleep(3000);
+List<WebElement> suggestions = driver.findElements(By.xpath("//div[@class='autocomplete-results-container']"
+	       		+ "/child::div"));
+	       for (WebElement web : suggestions) 
+	       {
+			String text = web.getText();
+			if(text.contains(" earbuds"))
+			{
+				web.click();
+				break;
+			}
+		}
+	       Thread.sleep(5000);
+	    //   driver.quit();
+	    }
+	}
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+ADVANCE SCENARIO IN AUTOMATION
+
+1) Multiple WebElement Handling
+   ----------------------------
+-> Generally we will use findelement() to capture the required element,But findelement() can return only first matched element 
+i.e findelement() is used to deal with single element at a time.
+
+So,if we want to capture all matched element of given locator,than we have to prefer findelements().
+
+-->findelements() returns List<WebElement> and it is used to handle multiple WebElement at a time.
+
+for understanding purpose
+-------------------------
+for each loop syntax
+                       for(Type of data   reference:from where to fetch the data)
+                       {
+                         }
+
+Ex:-
+       for(WebElement wb:allLinks)                                 
+       {
+         } 
+Example in Eclipse
+======================================================================================================
+2) Auto Suggestion Handling
+   ------------------------
+-->After providing some input in search bar we will get search suggestion which is called as 
+Autosuggestion.
+Example in Eclipse
+======================================================================================================
+3) SVG Element Handling
+   --------------------
+-->SVG stands for scalar vector graphics.
+-->Its a older style to create an image in the webpage and this kind of elements are generated by xml language.
+(About xml we will discuss in future class,its one of the language like json.)
+
+note**
+     Normal approach of xpath is not applicable on svg element.
+     we have different xpath for svg elements.
+
+a) Xpath to capture all svg element in webpage
+   --------------------------------------------
+   //*[name()='svg']
+
+b) Xpath to capture particular svg image
+   -------------------------------------
+   Example:-  if we have like this when we inspect   <svg class="gb_Ue">
+   
+   Xpath for above example is::
+                           //*[name()='svg' and @class='gb_Ue']
+
+Example in Eclipse
+======================================================================================================
+4) KeyBoard StrokeHandling
+   -----------------------
+To handle keyboard strokes we have two approach :-
+                                                   a) By using keys class.
+                                                   b) By using robot class.
+a) By using Keys class
+   -------------------
+Keys is a special class present in selenium library to handle the keyboard action.
+-->Keys class can be used in  sendkeys().
+lets see how with the few examples..
+       
+Example in Eclipse
+
+Limitations of Keys class
+-------------------------
+->It will not support desktop applications.
+->It dont support combined keyboard actions.
+
+b)By using robot class
+  --------------------
+Robot class is a special class present in java.awt.package which can handle any form of keyboard strokes.
+
+There are two non-static methods in robot class--
+                                                   1. KeyPress(KeyEvent Class)
+                                                   2. KeyRelease(KeyEvent Class)
+In KeyEventClass we have static methods .
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Methods of action class
+-----------------------
+1. MoveToElement(WebElement element)
+  ---------------------------------
+->This method is used to move the pointer on the given element.
+
+2. perform()
+   ---------
+->This is mandatory method for every actions class method to get executed.
+
+3. SendKeys(WebElement ele,String input)
+   ------------------------------------
+->This method is used to pass the input at its respective webelement location by using single method.
+
+4. click(WebElement ele,String input)
+   ----------------------------------
+->This method is used to perform click action on the webelement which is given as input to this method.
+
+5. build()
+   -------
+->combining more than one action and executing it in sequence is done by build().
+
+6. Contextclick(WebElement element)
+   -------------------------------
+->It is used to perform right click on the webelement.
+
+
+7. dragAndDrop(WebElement dragElement,WebElement dropElement)
+   ----------------------------------------------------------
+->This method is used for drap and drop scenarios.
+
+8. clickAndHold(WebElement element)
+   --------------------------------
+->This method is used to perform clickandHold scenarios.
+
+9. release(WebElement element)
+   ---------------------------
+->This method is used to release the holded elements.
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ActionsClass Program
+
+public class ActionsClassEx {
+
+	public static void main(String[] args) {
+	
+		WebDriver driver=new ChromeDriver();
+		
+		//Example for moveToElement()
+		/*driver.get("https://www.amazon.in/");
+		WebElement data = driver.findElement(By.xpath("//a[text()='Sell']"));
+       Actions act = new Actions(driver);
+	   act.moveToElement(data).perform();*/
+		
+		//Actions methods-----> sendKeys(),perform(),click(),build().
+		/*driver.get("https://demo.actitime.com/login.do");
+        WebElement UN = driver.findElement(By.id("username"));
+        WebElement PW = driver.findElement(By.name("pwd"));
+	    WebElement Login = driver.findElement(By.id("loginButton"));
+	
+	    Actions act = new Actions(driver);
+//	    act.sendKeys(UN,"admin").perform();
+//	    act.sendKeys(PW,"manager").perform();
+//	    act.click(Login).perform();
+	    act.sendKeys(UN,"admin").sendKeys(PW,"manager").click(Login).build().perform();*/
+		
+		//Actions method---->contextClick()
+		/*driver.get("https://www.amazon.in/");
+		WebElement data = driver.findElement(By.xpath("//a[text()='Sell']"));
+		Actions act = new Actions(driver);
+		act.contextClick(data).perform();*/
+		
+		driver.get("https://jqueryui.com/resources/demos/droppable/default.html");
+	WebElement drag = driver.findElement(By.id("draggable"));
+	WebElement drop = driver.findElement(By.id("droppable"));
+	
+    Actions act = new Actions(driver);
+	/*act.dragAndDrop(drag, drop).perform();*/
+    
+     act.clickAndHold(drag).perform();
+     act.release(drop).perform();
+   }
+
+}
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+ListBox Handling/DropDown Handling:-
+We can Handle it by Threee Apporch:
+1)By using KeyBoardStrokes
+2)By using SelectClass
+3)By using Locators
+
+Program
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class DropDownByKeysClass {
+
+	public static void main(String[] args) throws Throwable {
+       WebDriver driver=new ChromeDriver();
+		driver.manage().window().maximize();
+		
+driver.get("https://www.facebook.com/");
+driver.findElement(By.xpath("//a[text()='Create new account']")).click();
+Thread.sleep(2000);
+WebElement datelist = driver.findElement(By.id("day"));
+Thread.sleep(1000);
+datelist.click();
+datelist.sendKeys(Keys.ARROW_UP);
+datelist.sendKeys(Keys.ARROW_DOWN);
+datelist.sendKeys(Keys.ARROW_DOWN);
+datelist.sendKeys(Keys.ARROW_DOWN);
+datelist.sendKeys(Keys.ARROW_UP);
+	
+	}
+
+}
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+select class
+  ---------------------
+->Select is a special class in java which is used for listbox handling and we have to create the 
+object of select class to invoke all the methods present in select class.
+
+Methods present in select class
+-------------------------------
+1. SelectByIndex(int index)
+   ------------------------
+-> Selects the item present in the list at given index.
+
+2. SelectByValue(String value)
+   ---------------------------
+-> Selects the item present in the list by using value attribute.
+
+3. SelectByVisibleText(String visibletext)
+   ---------------------------------------
+->Selects the item present in the list by using visible text of item.
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.Select;
+
+public class DropDownUsingSelectClass {
+public static void main(String[] args) throws Throwable {
+	
+WebDriver driver=new ChromeDriver();
+driver.manage().window().maximize();
+		
+driver.get("https://www.facebook.com/");
+driver.findElement(By.xpath("//a[text()='Create new account']")).click();
+Thread.sleep(2000);
+
+ /*WebElement datelist = driver.findElement(By.id("day"));
+ //SelectByIndex()
+       Select sel = new Select(datelist);
+       sel.selectByIndex(8);
+       
+       WebElement monthlist = driver.findElement(By.id("month"));
+       Select sele = new Select(monthlist);
+       sele.selectByIndex(3);*/
+	
+       //SelectByValue()
+    /*   WebElement datelist = driver.findElement(By.id("day"));
+      Select sel = new Select(datelist);
+      sel.selectByValue("10");
+      
+      WebElement monthlist = driver.findElement(By.id("month"));
+      Select sele = new Select(monthlist);
+	 sele.selectByValue("8");*/
+
+  //SelectByVisibleText()
+WebElement datelist = driver.findElement(By.id("day"));
+Select sel = new Select(datelist);
+sel.selectByVisibleText("15");
+
+WebElement monthlist = driver.findElement(By.id("month"));
+Select sele = new Select(monthlist);
+sele.selectByVisibleText("Sep");
+
+WebElement yearlist = driver.findElement(By.id("year"));
+Select select = new Select(yearlist);
+select.selectByVisibleText("2002");
+	
+	}
+
+}  
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+All programs
+
+import java.util.List;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.edge.EdgeDriver;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+
+public class HandlingMulitpleWebElements {
+
+	public static void main(String[] args) {
+		
+		WebDriver driver;
+		WebDriverManager.edgedriver().setup();
+		driver=new EdgeDriver();
+		driver.manage().window().maximize();
+		driver.get("https://www.flipkart.com/");
+		driver.findElement(By.xpath("//button[contains(.,'✕')]")).click();
+		List<WebElement> allLinks = driver.findElements(By.xpath("//a"));//366
+	int count=0;
+	for(WebElement link:allLinks)//1 //2
+	{
+		System.out.println(link.getText());//1 //2
+		count++;//1 //2-----------------//366
+	}
+	System.out.println("Total num of links:"+count);
+	}
+
+}
+----import java.util.List;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.edge.EdgeDriver;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+
+public class AutoSuggestion {
+
+	public static void main(String[] args) throws Throwable {
+
+		WebDriver driver;
+		driver=new ChromeDriver();
+		driver.manage().window().maximize();
+		driver.get("https://www.flipkart.com/");
+driver.findElement(By.xpath("//button[contains(.,'✕')]")).click();
+		
+WebElement data = driver.findElement(By.name("q"));
+data.sendKeys("bluetooth");
+Thread.sleep(4000);
+List<WebElement> suggestion = driver.findElements(By.xpath("//ul[@class='col-12-12 _1MRYA1 _38UFBk']/li"));//1of8 //puma shoes
+                     //8
+for(WebElement wb:suggestion)
+{
+	String text = wb.getText();
+	if(text.contains(" headset boat"))
+	{
+		Thread.sleep(2000);
+		wb.click();
+		break;
+	}
+}   
+}}
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+import java.util.List;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class AutoSuggestionAmazonEx {
+
+	public static void main(String[] args) throws Throwable {
+		WebDriver driver=new ChromeDriver();
+		driver.manage().window().maximize();
+driver.get("https://www.amazon.in/");
+//driver.manage().window().minimize();
+driver.findElement(By.id("twotabsearchtextbox")).sendKeys("puma");
+Thread.sleep(2000);
+List<WebElement> allsuggestion = driver.findElements(By.xpath("//div[@class='left-pane-results-container']/div//span"));
+	
+	for(WebElement wb:allsuggestion)
+	{
+		String text = wb.getText();
+		System.out.println(text);
+		if(text.equalsIgnoreCase("flip flops for men"))
+		{
+			wb.click();
+			break;
+		}
+	}
+	}
+
+}
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+import java.util.List;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class AutoSuggestionEx2 {
+
+	public static void main(String[] args) throws Throwable {
+		
+		WebDriver driver=new ChromeDriver();
+		driver.get("https://www.flipkart.com/");
+		driver.findElement(By.xpath("//button[contains(.,'✕')]")).click();
+		driver.findElement(By.name("q")).sendKeys("nike");
+		Thread.sleep(2000);
+		List<WebElement> AllSuggestion = driver.findElements(By.tagName("li"));
+		
+		for(WebElement webEle:AllSuggestion)
+		{
+			if(webEle.getText().contains(" sneakers"))
+			{
+				webEle.click();
+				break;
+			}
+		}
+	}
+
+}
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.edge.EdgeDriver;
+
+public class SvgElement {
+
+	public static void main(String[] args) {
+		
+		WebDriver driver=new EdgeDriver();
+		
+driver.get("https://www.google.com/");
+//svg:-Scalable vector Graphics
+//syntax:-//*[name()='svg']
+//driver.findElement(By.xpath("//*[name()='svg' and @class='gb_h']")).click();
+	driver.findElement(By.cssSelector("svg[class='gb_h'] ")).click();
+	}
+	}
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class KeysClass {
+
+	public static void main(String[] args) {
+		
+		WebDriver driver=new ChromeDriver();
+		driver.get("https://demo.actitime.com/login.do");
+		//case:-1
+		/*driver.findElement(By.id("username")).sendKeys("admin");
+		WebElement password = driver.findElement(By.name("pwd"));
+		password.sendKeys("manager");
+		password.sendKeys(Keys.ENTER);*/
+		
+		//case:-2
+		//driver.findElement(By.id("username")).sendKeys("admin");
+		//driver.findElement(By.name("pwd")).sendKeys("manager",Keys.ENTER);
+		
+		//case:-3
+	//	driver.findElement(By.id("username")).sendKeys("admin",Keys.TAB,"manager",Keys.ENTER);
+	
+	
+		//case:-4
+		//driver.findElement(By.id("username")).sendKeys("admin",Keys.TAB,"manager",Keys.TAB,Keys.SPACE);
+	
+	
+}
+
+}
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+
+public class KeysClassEx2 {
+
+	public static void main(String[] args) {
+		
+		WebDriver driver;
+		WebDriverManager.chromedriver().setup();
+		driver=new ChromeDriver();
+		
+		//WebDriver driver=new ChromeDriver();
+		driver.get("https://www.flipkart.com/");
+		driver.findElement(By.xpath("//button[contains(.,'✕')]")).click();
+driver.findElement(By.name("q")).sendKeys("puma",Keys.ENTER);
+
+	}
+}
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+import java.awt.Robot;
+import java.awt.event.KeyEvent;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class RobotClassEx {
+
+	public static void main(String[] args) throws Throwable {
+		
+		WebDriver driver=new ChromeDriver();
+		driver.get("https://demo.actitime.com/login.do");
+        driver.findElement(By.id("username")).sendKeys("admin");
+    Robot r = new Robot();
+    r.keyPress(KeyEvent.VK_CONTROL);
+	r.keyPress(KeyEvent.VK_A);
+	r.keyRelease(KeyEvent.VK_CONTROL);
+	r.keyRelease(KeyEvent.VK_A);
+	
+	 r.keyPress(KeyEvent.VK_CONTROL);
+	 r.keyPress(KeyEvent.VK_C);
+	 r.keyRelease(KeyEvent.VK_CONTROL);
+	 r.keyRelease(KeyEvent.VK_C);
+		
+	 r.keyPress(KeyEvent.VK_TAB);
+	 r.keyRelease(KeyEvent.VK_TAB);
+	 
+	 r.keyPress(KeyEvent.VK_CONTROL);
+	 r.keyPress(KeyEvent.VK_V);
+	 r.keyRelease(KeyEvent.VK_CONTROL);
+	 r.keyRelease(KeyEvent.VK_V);
+	 
+	}
+
+}
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
+
+public class ActionsClassEx {
+
+	public static void main(String[] args) {
+	
+		WebDriver driver=new ChromeDriver();
+		
+		//Example for moveToElement()
+		/*driver.get("https://www.amazon.in/");
+		WebElement data = driver.findElement(By.xpath("//a[text()='Sell']"));
+       Actions act = new Actions(driver);
+	   act.moveToElement(data).perform();*/
+		
+		//Actions methods-----> sendKeys(),perform(),click(),build().
+		/*driver.get("https://demo.actitime.com/login.do");
+        WebElement UN = driver.findElement(By.id("username"));
+        WebElement PW = driver.findElement(By.name("pwd"));
+	    WebElement Login = driver.findElement(By.id("loginButton"));
+	
+	    Actions act = new Actions(driver);
+//	    act.sendKeys(UN,"admin").perform();
+//	    act.sendKeys(PW,"manager").perform();
+//	    act.click(Login).perform();
+	    act.sendKeys(UN,"admin").sendKeys(PW,"manager").click(Login).build().perform();*/
+		
+		//Actions method---->contextClick()
+		/*driver.get("https://www.amazon.in/");
+		WebElement data = driver.findElement(By.xpath("//a[text()='Sell']"));
+		Actions act = new Actions(driver);
+		act.contextClick(data).perform();*/
+		
+		driver.get("https://jqueryui.com/resources/demos/droppable/default.html");
+	WebElement drag = driver.findElement(By.id("draggable"));
+	WebElement drop = driver.findElement(By.id("droppable"));
+	
+    Actions act = new Actions(driver);
+	/*act.dragAndDrop(drag, drop).perform();*/
+    
+     act.clickAndHold(drag).perform();
+     act.release(drop).perform();
+   }
+
+}
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class DropDownByKeysClass {
+
+	public static void main(String[] args) throws Throwable {
+       WebDriver driver=new ChromeDriver();
+		driver.manage().window().maximize();
+		
+driver.get("https://www.facebook.com/");
+driver.findElement(By.xpath("//a[text()='Create new account']")).click();
+Thread.sleep(2000);
+WebElement datelist = driver.findElement(By.id("day"));
+Thread.sleep(1000);
+datelist.click();
+datelist.sendKeys(Keys.ARROW_UP);
+datelist.sendKeys(Keys.ARROW_DOWN);
+datelist.sendKeys(Keys.ARROW_DOWN);
+datelist.sendKeys(Keys.ARROW_DOWN);
+datelist.sendKeys(Keys.ARROW_UP);
+	
+	}
+
+}
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.Select;
+
+public class DropDownUsingSelectClass {
+public static void main(String[] args) throws Throwable {
+	
+WebDriver driver=new ChromeDriver();
+driver.manage().window().maximize();
+		
+driver.get("https://www.facebook.com/");
+driver.findElement(By.xpath("//a[text()='Create new account']")).click();
+Thread.sleep(2000);
+
+ /*WebElement datelist = driver.findElement(By.id("day"));
+ //SelectByIndex()
+       Select sel = new Select(datelist);
+       sel.selectByIndex(8);
+       
+       WebElement monthlist = driver.findElement(By.id("month"));
+       Select sele = new Select(monthlist);
+       sele.selectByIndex(3);*/
+	
+       //SelectByValue()
+    /*   WebElement datelist = driver.findElement(By.id("day"));
+      Select sel = new Select(datelist);
+      sel.selectByValue("10");
+      
+      WebElement monthlist = driver.findElement(By.id("month"));
+      Select sele = new Select(monthlist);
+	 sele.selectByValue("8");*/
+
+  //SelectByVisibleText()
+WebElement datelist = driver.findElement(By.id("day"));
+Select sel = new Select(datelist);
+sel.selectByVisibleText("15");
+
+WebElement monthlist = driver.findElement(By.id("month"));
+Select sele = new Select(monthlist);
+sele.selectByVisibleText("Sep");
+
+WebElement yearlist = driver.findElement(By.id("year"));
+Select select = new Select(yearlist);
+select.selectByVisibleText("2002");
+	
+	}
+
+}  
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class DropDownUsingXapth {
+
+	public static void main(String[] args) throws Throwable {
+		WebDriver driver=new ChromeDriver();
+		driver.manage().window().maximize();
+				
+		driver.get("https://www.facebook.com/");
+		driver.findElement(By.xpath("//a[text()='Create new account']")).click();
+		Thread.sleep(2000);
+       driver.findElement(By.id("day"));
+	  	
+       driver.findElement(By.xpath("//option[text()='10']")).click();
+		}
+	}
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+import java.awt.Robot;
+import java.awt.event.KeyEvent;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class SCrollingByRobot {
+
+	public static void main(String[] args) throws Throwable {
+		
+		WebDriver driver=new ChromeDriver();
+		driver.get("https://www.amazon.in/");
+		driver.manage().window().maximize();
+		
+		Robot r = new Robot();
+	r.keyPress(KeyEvent.VK_PAGE_DOWN);
+	r.keyRelease(KeyEvent.VK_PAGE_DOWN);
+	Thread.sleep(2000);
+	
+	r.keyPress(KeyEvent.VK_PAGE_DOWN);
+	r.keyRelease(KeyEvent.VK_PAGE_DOWN);
+	
+	Thread.sleep(2000);
+	r.keyPress(KeyEvent.VK_PAGE_DOWN);
+	r.keyRelease(KeyEvent.VK_PAGE_DOWN);
+	
+	Thread.sleep(2000);
+	r.keyPress(KeyEvent.VK_PAGE_DOWN);
+	r.keyRelease(KeyEvent.VK_PAGE_DOWN);
+	
+	Thread.sleep(2000);
+	r.keyPress(KeyEvent.VK_PAGE_DOWN);
+	r.keyRelease(KeyEvent.VK_PAGE_DOWN);
+	
+	Thread.sleep(2000);
+	r.keyPress(KeyEvent.VK_PAGE_UP);
+	r.keyRelease(KeyEvent.VK_PAGE_UP);
+	
+	Thread.sleep(2000);
+	r.keyPress(KeyEvent.VK_PAGE_UP);
+	r.keyRelease(KeyEvent.VK_PAGE_UP);
+	
+	Thread.sleep(2000);
+	r.keyPress(KeyEvent.VK_PAGE_UP);
+	r.keyRelease(KeyEvent.VK_PAGE_UP);
+	}
+
+}
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class ScrolingByJavaScriptExecutor {
+
+	public static void main(String[] args) throws Throwable {
+		
+		WebDriver driver=new ChromeDriver();
+		/*driver.get("https://www.amazon.in/");
+		driver.manage().window().maximize();
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+	JavascriptExecutor js = (JavascriptExecutor)driver;
+
+		for(int i=0;i<3;i++)
+		{
+			js.executeScript("window.scrollBy(0,500)");
+			Thread.sleep(1000);
+		}
+		for(int i=0;i<3;i++)
+		{
+			js.executeScript("window.scrollBy(0,-500)");
+			Thread.sleep(1000);
+		}*/
+	
+		driver.get("https://www.facebook.com/");
+		WebElement ele = driver.findElement(By.xpath("//a[text()='Help']"));
+		JavascriptExecutor js = (JavascriptExecutor)driver;
+		js.executeScript("arguments[0].scrollIntoView()",ele);
+		ele.click();
+	}
+
+}
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+import java.time.Duration;
+import java.util.concurrent.TimeUnit;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.FluentWait;
+public class WaitsEx {
+
+	public static void main(String[] args) {
+		
+		WebDriver driver=new ChromeDriver();
+		
+		//syntax:-
+	/*	Options opt = driver.manage();
+		Timeouts time = opt.timeouts();
+		time.implicitlyWait(20,TimeUnit.SECONDS);*/
+		//version-3
+		driver.manage().timeouts().implicitlyWait(20,TimeUnit.SECONDS);
+		//version-4
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+		driver.get("https://demo.actitime.com/login.do");
+
+		driver.findElement(By.id("username")).sendKeys("admin");
+		driver.findElement(By.name("pwd")).sendKeys("manager");
+		
+		WebElement login = driver.findElement(By.className("initial"));
+		
+	/*-	WebDriverWait wait1 = new WebDriverWait(driver, Duration.ofSeconds(10));
+		wait1.until(ExpectedConditions.elementToBeClickable(login));
+		login.click();//timeoutExecption
+		
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+		wait.until(ExpectedConditions.titleContains("Enter Time-Track"));*/
+		
+		FluentWait wait2 = new FluentWait(driver);
+		wait2.pollingEvery(Duration.ofSeconds(10));
+		wait2.until(ExpectedConditions.elementToBeClickable(login));
+	}
+
+}
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------

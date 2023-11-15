@@ -1,0 +1,298 @@
+PopUp Handling
+
+Types of POpup
+1)Hidden Division PopUp
+The screen which comes in webpage after some specific action is consider as Hidden Division PopUp
+* This popups are Undraggable
+* This Popups are inspectable means it can handle by webdriver directly 
+This is made by HTML Lang
+
+Example Prg
+
+public class Hidden {
+
+	public static void main(String[] args) throws Throwable {
+	
+		WebDriver driver=new EdgeDriver();
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+		driver.get("https://demo.actitime.com/login.do");
+		driver.manage().window().maximize();
+		 driver.findElement(By.id("username")).sendKeys("admin",Keys.TAB,"manager",Keys.ENTER);
+		 driver.findElement(By.cssSelector("div#container_tasks")).click();
+		 driver.findElement(By.xpath("(//div[@class='checkbox inactive']/div[@class='img'])[2]")).click();
+		 Thread.sleep(1000);
+		 driver.findElement(By.xpath("(//div[text()='Delete'])[1]")).click();
+	}
+
+}
+-------------------------------------------------------------------------------------------------------------------------------------
+2)Calender Popup
+
+A calendar can be in the form of a dropdown selection or with backward and forward buttons
+ to select up and down in dates we use Calender popup
+
+Example prg
+
+public class CalenderPopup {
+
+	public static void main(String[] args) {
+		
+		WebDriver driver=new EdgeDriver();
+		driver.get("https://www.makemytrip.com/");
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+		
+		driver.findElement(By.xpath("//span[text()='Departure']")).click();
+		
+		driver.findElement(By.xpath("//div[text()='March 2023']"
+				+ "/ancestor::div[@class='DayPicker-Month']/descendant::p[text()='20']")).click();
+	}
+
+}
+--------------------------------------------------------------------------------------------------------------------------------------
+
+3)Alert Popup
+* It is also called Confirmation popup
+* This popups are undraggable
+* This popups are uninspectable because they are made of javascript due to this it is also called as javascript popup.
+* As this popup are uninspectable so webdriver cannot handle it directly.
+ 
+Example prg
+
+public class AlertPopup {
+
+	public static void main(String[] args) throws Throwable {
+		
+		WebDriver driver=new ChromeDriver();
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+		driver.get("https://demo.actitime.com/login.do");
+		
+		 driver.findElement(By.id("username")).sendKeys("admin",Keys.TAB,"manager",Keys.ENTER);
+		 Thread.sleep(2000);
+	 driver.findElement(By.cssSelector("div.popup_menu_button_settings")).click();
+	 driver.findElement(By.linkText("Types of Work")).click();
+		 driver.findElement(By.xpath("//span[text()='Create Type of Work']")).click();
+		 
+	 driver.findElement(By.name("name")).sendKeys("shobharani");
+	 driver.findElement(By.xpath("//input[@value='      Cancel      ']")).click();
+		 
+		Alert alt = driver.switchTo().alert();
+	 
+	     String text = alt.getText();
+	     System.out.println(text);
+	 
+	     alt.accept();
+
+	}
+
+}
+--------------------------------------------------------------------------------------------------------------------------------------
+4)Window Popup
+
+getwindowHandle: * It returns only one session id. where driver is currently focusing.
+                 * The return type is String
+
+getwindowHandles: * It returns all browser session id running in execution.
+                  * The return type is set<String>
+
+import java.util.Set;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
+
+public class WindowHandling {
+
+	public static void main(String[] args) throws Throwable {
+		
+		WebDriver driver=new ChromeDriver();
+		driver.manage().window().maximize();
+		driver.get("https://www.naukri.com");
+		WebElement jobs = driver.findElement(By.xpath("//div[.='Jobs']"));
+
+		Actions act = new Actions(driver);
+		act.moveToElement(jobs).perform();
+		
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("//div[text()='Jobs by skill']")).click();
+		
+		driver.findElement(By.xpath("//div[.='Services']")).click();
+		
+	//	driver.findElement(By.xpath("//span[.='FIND JOBS']")).click();
+	
+		String mainId = driver.getWindowHandle();
+		System.out.println(mainId);
+		
+		Set<String> allids = driver.getWindowHandles();
+	System.out.println(allids);
+	
+	for(String id:allids)
+	{
+		if(!mainId.equals(id))
+		{
+			driver.switchTo().window(id);
+			Thread.sleep(1000);
+			driver.findElement(By.xpath("//span[.='FIND JOBS']")).click();
+		}
+	}
+	
+	driver.switchTo().window(mainId);
+	//driver.close();
+	}
+
+}
+
+--------------------------------------------------------------------------------------------------------------------------------------
+import java.time.Duration;
+import java.util.Set;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class WindowHandlingEx2 {
+
+	public static void main(String[] args) throws Throwable {
+		
+		WebDriver driver=new ChromeDriver();
+		driver.get("https://demo.automationtesting.in/Windows.html");
+		driver.manage().window().maximize();
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+		driver.findElement(By.xpath("//a[text()='Open New Seperate Windows']")).click();
+	driver.findElement(By.xpath("//button[text()='click']")).click();
+	//driver.findElement(By.xpath("//a[text()='Watch the Videos']")).click();
+	Set<String> allIds = driver.getWindowHandles();//1 //2  //3
+	
+	for(String id:allIds)
+	{
+		driver.switchTo().window(id);
+		String title = driver.getTitle();
+		System.out.println(title);
+		if(title.contains("Selenium"))
+		{
+			break;
+		}
+	}
+	driver.findElement(By.xpath("//a[text()='Watch the Videos']")).click();
+	
+	Set<String> allWin = driver.getWindowHandles();
+	for(String id:allWin)
+	{
+		driver.switchTo().window(id);
+		String title = driver.getTitle();
+		System.out.println(title);
+		if(title.contains("Frames & windows"))
+		{
+			break;
+		}
+	}
+	}
+
+}
+--------------------------------------------------------------------------------------------------------------------------------------------------------------
+import java.util.Set;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class WindowsEx2 {
+
+	public static void main(String[] args) throws Throwable {
+		
+		WebDriver driver=new ChromeDriver();
+		driver.get("https://demo.automationtesting.in/Windows.html");
+		driver.findElement(By.xpath("//a[.='Open New Seperate Windows']")).click();
+		driver.findElement(By.xpath("//button[@class='btn btn-primary']")).click();
+		Thread.sleep(4000);
+		
+		String mainId = driver.getWindowHandle();
+		  System.out.println(mainId);
+		  
+		Set<String> allIds = driver.getWindowHandles();
+		System.out.println(allIds);
+		 System.out.println(allIds);
+		  for(String id:allIds)
+		  {
+			  if(!mainId.equals(id))
+			  {
+				  driver.switchTo().window(id);
+				  driver.findElement(By.xpath("//a[text()='Watch the Videos']")).click();
+	}}
+}}
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+6)Frame popup
+* Frames are most commonly called as iframe
+* An inline frame (iframe) is a HTML element that loads another HTML page within the document.
+ It essentially puts another webpage within the parent page.
+ They are commonly used for advertisements, embedded videos etc.
+
+	public static void main(String[] args) {
+		
+		WebDriver driver=new EdgeDriver();
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+		driver.get("https://jqueryui.com/droppable");
+		
+		driver.switchTo().frame(0);
+		Actions act=new Actions(driver);
+		WebElement drag = driver.findElement(By.id("draggable"));
+		WebElement drop = driver.findElement(By.id("droppable"));	
+			
+		act.dragAndDrop(drag, drop).perform();
+	}
+
+}
+--------------------------------------------------------------------------------------------------------------------------------------
+7)FileUpload popup
+
+The seperate window which comes for selecting the file which need to be upload is called file upload.
+
+
+public class FileUpLoadPop {
+
+	public static void main(String[] args) {
+		
+		WebDriver driver=new EdgeDriver();
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+		driver.get("https://www.monsterindia.com/");
+		driver.findElement(By.xpath("//div[contains(text(),'Upload Resume')]")).click();
+//WebElement data = driver.findElement(By.xpath("//button[text()='Or select file to upload']"));
+    WebElement data = driver.findElement(By.id("file-upload"));
+    data.sendKeys("C:\\Users\\Shobha\\Downloads\\extentReportDoc.txt");
+    System.out.println("uploaded sucessfully");
+	}
+
+}
+--------------------------------------------------------------------------------------------------------------------------------------
+8)Authentication Popup
+
+In real time there will be some websites which will get access after providing username and password. so the popup which ask for 
+username and password is called as Authentication popup.
+
+This popup are uninspectable so webdriver cannot handle it directly.
+without providing authentication.we cannt access the application.
+
+public class AuthenticationPopup {
+
+	public static void main(String[] args) {
+		
+		WebDriver driver=new EdgeDriver();
+		//driver.get("https://the-internet.herokuapp.com/basic_auth");
+		//(https://username:password@URL);
+		driver.get("https://admin:admin@the-internet.herokuapp.com/basic_auth");
+		}}
+-----------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+

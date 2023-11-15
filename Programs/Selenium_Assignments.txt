@@ -1,0 +1,35 @@
+1.find the xpath for iphone price using flipkart
+
+use get text method
+
+//div[@id='container']/div/div[3]/div/div[2]/div[4]/div[1]/div[1]/div[1]/a/div[2]/div[2]/div/div/div[@class='_30jeq3 _1_WHN1']
+
+//*[@id="container"]/div/div[3]/div[1]/div[2]/div[4]/div/div/div/a/div[2]/div[2]/div[1]/div/div[1]
+
+2.Path for 1 to RRR
+
+7/19/2023
+1.naviagte to bigbasket and serach for apple and fetch the green apple price
+2.Navigate to puma and second sneaker fetch price
+
+7/22
+navigate to meesho and serach for shoes fetch 1st and 3rd shoe price
+
+7/27
+facebook---using keys class select date 25-12-2025
+using actions class select day,date,month using facebook
+
+
+7/29
+flipkart---samsung mobiles--fetch all the phone names along with prices----done
+print price which is greater than 10,000
+
+String priceText = price.get(i).getText().replace("₹", "").replace("", ""); int priceValue = Integer.parseInt(priceText);
+
+
+8/3
+https://demo.automationtesting.in/Windows.html
+
+open new seperate window--->click--->watch the videos--->play any one video /home
+
+2ne assign:  https://www.irctc.co.in/nget/train-search=---click on the popups

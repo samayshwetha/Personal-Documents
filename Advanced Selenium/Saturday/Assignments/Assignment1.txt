@@ -1,0 +1,324 @@
+http://localhost:8888
+Username: admin
+Password: admin
+
+Scenario 1:
+Launch Browser
+Login to application with valid credentials
+Navigate to Contacts link
+Click on Create contact look Up Image
+Create Contact with Mandatory fields
+Save and Verify
+logout of Application
+
+Scenario 2: 
+Launch Browser
+Login to application with valid credentials 
+Navigate to Organizations link 
+Click on Create Organization look Up Image 
+Create Organization with Mandatory fields 
+Save and Verify 
+logout of Application 
+
+Scenario 3:
+Launch Browser
+Login to application with valid credentials
+Navigate to Organizations link
+Click on Create Organization look Up Image
+Create Organization with Mandatory fields
+Select "Chemicals" in the industry drop down
+Save and Verify
+logout of Application
+
+Scenario 4:
+Launch Browser
+Login to application with valid credentials
+Navigate to Organizations link
+Click on Create Organization look Up Image
+Create Organization with Mandatory fields
+Select "Energy" in the industry drop down
+Select "Customer" in the Type Drop down 
+Save and Verify
+logout of Application
+
+Scenario 5: - end to end - Integration
+Launch Browser
+Login to application with valid credentials
+Navigate to Contacts link
+Click on Create contact look up image
+Create contact with manadatory fields
+Select the Organization from organization look up image
+Save and verify
+logout of app
+
+
+
+SCENARIO 1
+
+package practice;
+
+import java.time.Duration;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.edge.EdgeDriver;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+
+public class Scenario1 {
+
+	public static void main(String[] args) throws Throwable {
+		// TODO Auto-generated method stub
+		
+		WebDriverManager.edgedriver().setup();
+		WebDriver driver = new EdgeDriver();
+		
+		driver.manage().window().maximize();
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+		
+		driver.get("http://localhost:8888/");
+		driver.findElement(By.name("user_name")).sendKeys("admin",Keys.TAB,"admin", Keys.ENTER);
+		
+		driver.findElement(By.xpath("//a[.='Contacts']")).click();
+		driver.findElement(By.xpath("//img[@title='Create Contact...']")).click();
+		driver.findElement(By.name("lastname")).sendKeys("Mishra");
+		driver.findElement(By.xpath("//input[@class='crmButton small save']")).click();
+		
+		driver.findElement(By.xpath("(//td[@class='small' and @valign='bottom'])[1]")).click();
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("//a[.='Sign Out']")).click();
+				
+
+	}
+
+}
+
+
+
+SCENARIO 2
+
+package practice;
+
+import java.time.Duration;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.edge.EdgeDriver;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+
+public class Scenario2 {
+
+	public static void main(String[] args) throws Throwable {
+		// TODO Auto-generated method stub
+		
+		WebDriverManager.edgedriver().setup();
+		WebDriver driver = new EdgeDriver();
+		
+		driver.manage().window().maximize();
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+		
+		driver.get("http://localhost:8888/");
+		driver.findElement(By.name("user_name")).sendKeys("admin",Keys.TAB,"admin", Keys.ENTER);
+		driver.findElement(By.xpath("//td[.='Organizations']")).click();
+		driver.findElement(By.xpath("//img[@title='Create Organization...']")).click();
+		driver.findElement(By.xpath("//input[@name='accountname']")).sendKeys("Wipro");
+		driver.findElement(By.xpath("//input[@value='  Save  ']")).click();
+		
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("(//td[@class='small' and @valign='bottom'])[1]")).click();
+		driver.findElement(By.xpath("//a[.='Sign Out']")).click();
+
+	}
+
+}
+
+
+
+SCENARIO 3
+
+package practice;
+
+import java.time.Duration;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.support.ui.Select;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+
+public class Scenario3 {
+
+	public static void main(String[] args) throws Throwable {
+		// TODO Auto-generated method stub
+		
+		WebDriverManager.edgedriver().setup();
+		WebDriver driver = new EdgeDriver();
+		
+		driver.manage().window().maximize();
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+		
+		driver.get("http://localhost:8888/");
+		driver.findElement(By.name("user_name")).sendKeys("admin",Keys.TAB,"admin", Keys.ENTER);
+		driver.findElement(By.xpath("//td[.='Organizations']")).click();
+		driver.findElement(By.xpath("//img[@title='Create Organization...']")).click();
+		driver.findElement(By.xpath("//input[@name='accountname']")).sendKeys("Wipro");
+		 WebElement industry = driver.findElement(By.name("industry"));
+		 industry.click();
+		Thread.sleep(1000);
+		Select sel = new Select(industry);
+		sel.selectByVisibleText("Chemicals");
+		
+		driver.findElement(By.xpath("//input[@value='  Save  ']")).click();
+		
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("(//td[@class='small' and @valign='bottom'])[1]")).click();
+		driver.findElement(By.xpath("//a[.='Sign Out']")).click();
+
+	}
+
+}
+
+
+
+
+SCENARIO 4
+
+package practice;
+
+import java.time.Duration;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.support.ui.Select;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+
+public class Scenario4 {
+
+	public static void main(String[] args) throws Throwable {
+
+
+		WebDriverManager.edgedriver().setup();
+		WebDriver driver = new EdgeDriver();
+		
+		driver.manage().window().maximize();
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+		
+		driver.get("http://localhost:8888/");
+		driver.findElement(By.name("user_name")).sendKeys("admin",Keys.TAB,"admin", Keys.ENTER);
+		driver.findElement(By.xpath("//td[.='Organizations']")).click();
+		driver.findElement(By.xpath("//img[@title='Create Organization...']")).click();
+		driver.findElement(By.xpath("//input[@name='accountname']")).sendKeys("TCS");
+		 WebElement industry = driver.findElement(By.name("industry"));
+		 industry.click();
+		Thread.sleep(1000);
+		Select sel = new Select(industry);
+		sel.selectByVisibleText("Energy");
+		
+		WebElement type = driver.findElement(By.name("accounttype"));
+		type.click();
+		Thread.sleep(1000);
+		Select sel1 = new Select(type);
+		sel1.selectByVisibleText("Customer");
+		
+		
+		
+		driver.findElement(By.xpath("//input[@value='  Save  ']")).click();
+		
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("(//td[@class='small' and @valign='bottom'])[1]")).click();
+		driver.findElement(By.xpath("//a[.='Sign Out']")).click();
+
+	}
+
+}
+
+
+
+
+SCENARIO 5
+
+
+package practice;
+
+import java.time.Duration;
+import java.util.Set;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.edge.EdgeDriver;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+
+public class Scenario5 {
+
+	public static void main(String[] args) throws Throwable {
+		// TODO Auto-generated method stub
+		
+		WebDriverManager.edgedriver().setup();
+		WebDriver driver = new EdgeDriver();
+		
+		driver.manage().window().maximize();
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+		
+		driver.get("http://localhost:8888/");
+		driver.findElement(By.name("user_name")).sendKeys("admin",Keys.TAB,"admin", Keys.ENTER);
+		
+		driver.findElement(By.xpath("//a[.='Contacts']")).click();
+		driver.findElement(By.xpath("//img[@title='Create Contact...']")).click();
+		driver.findElement(By.name("lastname")).sendKeys("Mishra1");
+		driver.findElement(By.xpath("(//img[@title='Select'])[1]")).click();
+		
+		Thread.sleep(2000);
+		String mainwin=driver.getWindowHandle();
+		System.out.println(mainwin);
+		Set<String> allwin = driver.getWindowHandles();
+		System.out.println(allwin);
+		
+		for(String a: allwin)
+		{
+			if(!mainwin.equals(a))
+			{
+				driver.switchTo().window(a);
+				Thread.sleep(2000);
+				driver.findElement(By.xpath("//a[.='TCS']")).click();
+			}
+		}
+		driver.switchTo().window(mainwin);
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//input[@class='crmButton small save']")).click();
+		
+		driver.findElement(By.xpath("(//td[@class='small' and @valign='bottom'])[1]")).click();
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("//a[.='Sign Out']")).click();
+		
+		
+
+	}
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

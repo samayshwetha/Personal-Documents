@@ -1,0 +1,311 @@
+TestNg
+TestNg is a unit testing Framework Tool, which supports java nd .net
+TestNg is a open source unit test framework tool,where NG stands for Next Generation.
+It provides advanced features such as annotations, data-driven testing, test sequencing, and parallel testing 
+to help you organize and execute your Selenium tests more efficiently and effectively
+
+Priority:
+When ever we execute testNg class , by default all the test methods will be executed based on Alphabetical order, in order to change the order of Execution, we go for priority.
+
+public class Sample {
+
+	@Test(priority = 0)
+	public void createContact()
+	{
+
+	System.out.println("contact created");
+
+	}
+    @Test(priority = -1)
+	public void modifyContact()
+	{
+		System.out.println("modify contact");
+	}
+	
+	@Test(priority = 1)
+	public void deleteContact()
+	{
+		System.out.println("delete contact");
+	}
+}
+modify contact
+contact created
+delete contact
+PASSED: createContact
+PASSED: modifyContact
+PASSED: deleteContact
+
+===============================================
+    Default test
+    Tests run: 3, Failures: 0, Skips: 0
+===============================================
+
+
+===============================================
+Default suite
+Total tests run: 3, Passes: 3, Failures: 0, Skips: 0
+===============================================
+--------------------------------------------------------------------------------------------------------------------------
+Depends on method:
+Its help us to check the dependent test script is pass or fail.
+If dependent test script get pass, execution will continue
+if dependent test-script get fail, skip all other test script which is dependent on first test.
+
+public class Sample {
+
+	@Test
+	public void createContact()
+	{
+
+	System.out.println("contact created");
+
+	}
+
+	@Test(dependsOnMethods = "createContact")
+	public void modifyContact()
+	{
+		System.out.println("modify contact");
+	}
+	
+	@Test(dependsOnMethods = "createContact")
+	public void deleteContact()
+	{
+		System.out.println("delete contact");
+	}
+}
+[RemoteTestNG] detected TestNG version 7.4.0
+contact created
+delete contact
+modify contact
+PASSED: modifyContact
+PASSED: createContact
+PASSED: deleteContact
+
+===============================================
+    Default test
+    Tests run: 3, Failures: 0, Skips: 0
+===============================================
+
+
+===============================================
+Default suite
+Total tests run: 3, Passes: 3, Failures: 0, Skips: 0
+===============================================
+-------------------------------------------------------------------------------------------------------------------------
+
+public class Sample {
+
+	@Test
+	public void createContact()
+	{
+		int []arr= {1,2,3};
+		System.out.println(arr[5]);
+	System.out.println("contact created");
+
+	}
+
+	@Test(dependsOnMethods = "createContact")
+	public void modifyContact()
+	{
+		System.out.println("modify contact");
+	}
+	
+	@Test(dependsOnMethods = "createContact")
+	public void deleteContact()
+	{
+		System.out.println("delete contact");
+	}
+}
+===============================================
+    Default test
+    Tests run: 3, Failures: 1, Skips: 2
+===============================================
+
+
+===============================================
+Default suite
+Total tests run: 3, Passes: 0, Failures: 1, Skips: 2
+===============================================
+-------------------------------------------------------------------------------------------------------------------------
+Invocation count:
+Same test-script executed with multiple times with same test data.
+
+public class Sample {
+
+	@Test
+	public void createContact()
+	{
+
+	System.out.println("contact created");
+
+	}
+    @Test
+	public void modifyContact()
+	{
+		System.out.println("modify contact");
+	}
+	
+	@Test(invocationCount = 2)
+	public void deleteContact()
+	{
+		System.out.println("delete contact");
+	}
+}
+
+contact created
+delete contact
+delete contact
+modify contact
+PASSED: deleteContact
+PASSED: createContact
+PASSED: deleteContact
+PASSED: modifyContact
+
+===============================================
+    Default test
+    Tests run: 3, Failures: 0, Skips: 0
+===============================================
+
+
+===============================================
+Default suite
+Total tests run: 4, Passes: 4, Failures: 0, Skips: 0
+===============================================
+--------------------------------------------------------------------------------------------------------------------------
+
+Batch Execution:
+
+Executing all the test script one after the another is called Batch Exceution
+To achive any kind of suite execution we requried TestNG.xml file.
+
+<suite name="Suite">
+  <test thread-count="5" name="Test">
+    <classes>
+      <class name="FrameWork.Properties_file"/>
+      <class name="FrameWork.Authentication"/>
+    </classes>
+  </test> <!-- Test -->
+</suite> <!-- Suite -->
+--------------------------------------------------------------------------------------------------------------------------
+
+Parallel Execution:Executing all the TestScript in a same browser at same time with different instance is called parallel
+Execution.
+
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite parallel="tests" name="Suite">
+  <test thread-count="5" parallel="tests" name="Test">
+    <classes>
+      <class name="PopUps.Authentication"/>
+      <class name="FrameWork.Properties_file"/>
+      </classes>
+  </test> 
+      
+      <test name="Test1">
+      <classes>
+      
+      <class name="FrameWork.Authentication"/>
+    </classes>
+  </test> <!-- Test -->
+</suite> <!-- Suite -->------------------------------------------------------------------------------------------------------------------------
+
+public class HardAssert {
+
+	@Test
+	public void createCustomer()
+	{
+
+		System.out.println("step1");
+		System.out.println("step2");
+		Assert.assertEquals(false, true);
+		System.out.println("step3");
+		System.out.println("step4");
+		
+	}
+	@Test
+	public void m1()
+	{
+		String expName="shobha";
+		String actuName="shobha";
+	Assert.assertEquals(expName, actuName);	
+	}
+}
+[RemoteTestNG] detected TestNG version 7.4.0
+step1
+step2
+PASSED: m1
+FAILED: createCustomer
+java.lang.AssertionError: expected [true] but found [false]
+
+===============================================
+    Default test
+    Tests run: 2, Failures: 1, Skips: 0
+===============================================
+
+
+===============================================
+Default suite
+Total tests run: 2, Passes: 1, Failures: 1, Skips: 0
+===============================================
+Example 2
+public class HardAssert {
+
+	@Test
+	public void createCustomer()
+	{
+
+		System.out.println("step1");
+		System.out.println("step2");
+		Assert.assertEquals(true, true);
+		System.out.println("step3");
+		System.out.println("step4");
+		
+	}
+	@Test
+	public void m1()
+	{
+		String expName="shobha";
+		String actuName="shobhaRani";
+	Assert.assertEquals(expName, actuName);	
+	}
+}
+[RemoteTestNG] detected TestNG version 7.4.0
+step1
+step2
+step3
+step4
+PASSED: createCustomer
+FAILED: m1
+java.lang.AssertionError: expected [shobhaRani] but found [shobha]
+===============================================
+    Default test
+    Tests run: 2, Failures: 1, Skips: 0
+===============================================
+
+
+===============================================
+Default suite
+Total tests run: 2, Passes: 1, Failures: 1, Skips: 0
+===============================================
+-------------------------------------------------------------------------------------------------------------------------
+
+import java.io.File;
+import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.Test;
+
+public class ScreenShotEx {
+
+	@Test
+	public void m1() throws Throwable
+	{
+		WebDriver driver=new ChromeDriver();
+		driver.get("https://demo.actitime.com/login.do");
+		TakesScreenshot screen = (TakesScreenshot)driver;
+		File src = screen.getScreenshotAs(OutputType.FILE);
+		File dest = new File("FailedScript.png");
+		FileUtils.copyFile(src, dest);
+	}
+}

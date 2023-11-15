@@ -1,0 +1,292 @@
+                                  Data Driven testing 
+
+
+	What is Data driven testing?
+Read the data from external recourse & run the test is called Data driven testing (parameterization)
+
+	What is Advantages of Data driven testing
+1.	Maintenance of the test data is easy
+2.	Modification of the test data in external recourse is easy 
+3.    Running test scripts in different credentials is easy
+
+                                         Data driven testing from Properties File 
+1.	What is Properties File?
+Properties is java feature file where we can store the data in from of key & values pair,
+Key & value data type should be always string .
+
+2.	How to read data from properties File?
+•	Get the java representation Object of the Physical file using “FileInputSteam
+•	Create a Object of “Properties” class & load all the keys
+•	 Read the data using getProperty(“Key”)
+
+
+public class Properties_file {
+public static void main(String[] args) throws Throwable {
+	WebDriver driver=new EdgeDriver();
+	driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+		
+		//FileInputStream fis=new FileInputStream("C:\\Users\\Shobha\\Desktop\\commondata10.properties.txt");
+		FileInputStream fis=new FileInputStream("./commondata10.properties.txt");
+		Properties pro=new Properties();
+		pro.load(fis);
+		
+		String URL = pro.getProperty("url");
+		String USERNAME = pro.getProperty("username");
+        String PASSWORD = pro.getProperty("password");
+        
+        driver.get(URL);
+         driver.findElement(By.id("username")).sendKeys(USERNAME);
+        driver.findElement(By.name("pwd")).sendKeys(PASSWORD);
+        driver.findElement(By.id("loginButton")).click();
+}}
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+             Data driven testing from Excel File
+
+Apache Poi is the open source libraries used to get & write data from all Microsoft documents like Excel , docx , ppt etc
+In real time most the company preferred the keep the test script data in Excel, because data will be in well-organized manner , so that modification & maintenance is easier.
+
+public class ExcelData{
+
+	public static void main(String[] args) throws Throwable {
+		
+		//WebDriver driver=new EdgeDriver();
+		driver=WebDriverManager.edgedriver().create();
+		
+		FileInputStream fis=new FileInputStream("./commondata10.properties.txt");
+		
+		Properties pro=new Properties();
+		pro.load(fis);
+		
+		String URL = pro.getProperty("url1");
+		driver.get(URL);
+		driver.findElement(By.xpath("//button[text()='✕']")).click();
+		
+		//Fetching data from Excel
+		//connecting the path
+		//FileInputStream fes=new FileInputStream("./Batch10.xlsx");
+		FileInputStream fes=new FileInputStream("C:\\Users\\Shobha\\Desktop\\Batch10.xlsx");
+		//load the data
+		Workbook book = WorkbookFactory.create(fes);
+		
+		//sheet
+		Sheet sheet = book.getSheet("FilpKart");
+		
+		//row
+		Row row = sheet.getRow(1);
+		
+		//cell
+		Cell cell = row.getCell(0);
+		
+		String Exceldata = cell.getStringCellValue();
+		
+		driver.findElement(By.name("q")).sendKeys(Exceldata);
+	}
+
+}
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+You can take poi,poi ooxml,poi ooxml schema any two dependencies with same version.
+
+Dependency Link:-https://mvnrepository.com/search?q=Apache+poi
+
+       <dependency>
+		   <groupId>org.apache.poi</groupId>
+		   <artifactId>poi</artifactId>
+		   <version>4.0.0</version>
+		</dependency>		
+		<dependency>
+		    <groupId>org.apache.poi</groupId>
+		    <artifactId>poi-ooxml</artifactId>
+		    <version>4.0.0</version>
+		</dependency>
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+1.	What is POM?
+          POM is a java design pattern preferred by google to develop object repository. 
+ 
+2.	Why POM ? 
+           It’s a well-organized structured design pattern, where we can maintain all the web elements in page wise, due to POM design pattern maintains & modification is easy & faster.
+
+3.	Advantages of POM: 
+1.	Well organized structure 
+2.	Handle stale element exception.
+3.	maintains & modification of element is easy
+
+
+Important question for Interview
+4.	What is staleElementReferenceException ?
+It’s one of selenium Exception , whenever webdriver try to identify an element , element was available in GUI, but at time of performing an action on the elements element was not recognized 
+due to  page got refreshed or elements may become old or element not attached to page in such case we get  staleElementReferenceException.
+
+5. Difference between @findBy , @findAll &@findBys annotation
+
+@findBy : used to identify the element using one locator or one condition
+@findAll : it contains multiple @findBy annotation , it mean we can identify  the same element using multiple locator (multiple conditions) , it will use OR condition during execution of locator
+     @findALL({ @findBy(@id=’username’) , @findBy(name=’user’)})
+@FindBys : it contains multiple @findBy annotation , it mean we can identify  the elements using multiple locator (multiple conditions) , it will use AND condition to during execution of locator
+        @findBys({ @findBy(@id=’username’) , @findBy(name=’user’)})
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+public class LoginPage {
+
+//initilization
+	public LoginPage(WebDriver driver)
+	{
+		PageFactory.initElements(driver, this);
+	}
+	
+	//Declaration
+	@FindBy(id="username")
+	private WebElement UserTextField;
+	
+	@FindBy(name="pwd")
+	private WebElement PasswordTextField;
+	
+	@FindBy(id="loginButton")
+	private WebElement LoginButton;
+
+	//getter methods
+	
+	public WebElement getUserTextField() {
+		return UserTextField;
+	}
+
+	public WebElement getPasswordTextField() {
+		return PasswordTextField;
+	}
+
+	public WebElement getLoginButton() {
+		return LoginButton;
+	}
+	
+	//Business Logics
+	
+	public void login(String username,String password)
+	{
+		UserTextField.sendKeys(username);
+		PasswordTextField.sendKeys(password);
+		LoginButton.click();
+		
+	}
+	
+}
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
+POM Implementation
+*******************
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.util.Properties;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+import POM.LoginPage;
+import io.github.bonigarcia.wdm.WebDriverManager;
+
+public class PomImplementation {
+
+	public static void main(String[] args) throws Throwable {
+		
+		WebDriverManager.chromedriver().setup();
+		WebDriver driver=new ChromeDriver();
+		
+		//step1:- connects java with particaular file
+		//FileInputStream fis = new FileInputStream("src/test/resources/propertiesData7pm.properties");
+		FileInputStream fis = new FileInputStream("C:\\Users\\Shobha\\Desktop\\propertiesData7pm.properties");
+		
+		//step2:-load the properties file in java system
+		Properties pro = new Properties();
+		pro.load(fis);
+		
+		//step3:-fetch data from properties file
+		String URL = pro.getProperty("url");
+		String USERNAME = pro.getProperty("username");
+		String PASSWORD = pro.getProperty("password");
+		
+		driver.get(URL);
+        driver.manage().window().maximize();
+        
+       /*  driver.findElement(By.id("username")).sendKeys(USERNAME);;
+         driver.findElement(By.name("pwd")).sendKeys(PASSWORD);;
+         driver.findElement(By.id("loginButton")).click();*/
+        
+        //getterMethods Implementation
+       /* LoginPage login =new LoginPage(driver);
+        login.getUserTextField().sendKeys(USERNAME);
+        login.getPassWordTextField().sendKeys(PASSWORD);
+	    login.getLoginButton().click();*/
+	
+        LoginPage login =new LoginPage(driver);
+        login.loginToApplication(USERNAME, PASSWORD);
+	}
+
+}
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+public class HomePage {
+
+	public HomePage(WebDriver driver)
+	{
+		PageFactory.initElements(driver, this);
+	}
+	
+	@FindBy(xpath="//a[text()='View Time-Track']")
+	private WebElement viewLink;
+
+	@FindBy(xpath="//a[text()='Enter Time-Track']")
+	private WebElement enterLink;
+	
+	public WebElement getEnterLink() {
+		return enterLink;
+	}
+     public WebElement getViewLink() {
+		return viewLink;
+	}
+	
+	public void clickViewLink()
+	{
+		viewLink.click();
+	}
+	
+	public void ClickEnterLink()
+	{
+		enterLink.click();
+	}
+}
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+public class Properties_file {
+	@Test
+public void properties_file() throws Throwable {
+	WebDriver driver=new EdgeDriver();
+	driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+		
+		//FileInputStream fis=new FileInputStream("C:\\Users\\Shobha\\Desktop\\commondata10.properties.txt");
+		FileInputStream fis=new FileInputStream("./commondata10.properties.txt");
+		Properties pro=new Properties();
+		pro.load(fis);
+		
+		String URL = pro.getProperty("url");
+		String USERNAME = pro.getProperty("username");
+        String PASSWORD = pro.getProperty("password");
+        
+        driver.get(URL);
+      /*   driver.findElement(By.id("username")).sendKeys(USERNAME);
+        driver.findElement(By.name("pwd")).sendKeys(PASSWORD);
+        driver.findElement(By.id("loginButton")).click();*/
+        
+        LoginPage login= new LoginPage(driver);
+        login.login(USERNAME, PASSWORD);
+		
+      //  driver.findElement(By.xpath("//a[text()='View Time-Track']")).click();
+        HomePage home=new HomePage(driver);
+        home.clickViewLink();
+        
+        home.ClickEnterLink();
+	}
+	}
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------

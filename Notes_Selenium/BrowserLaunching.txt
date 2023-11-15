@@ -1,0 +1,94 @@
+SetUp for Selenium Version-3:
+
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+
+public class EmptyBrowser {
+
+	public static void main(String[] args) {
+		
+		//Case1:
+	//	WebDriver driver=new ChromeDriver();
+	
+		//Case2:-
+	/*	String Key="webdriver.chrome.driver";
+		String value="./chromedriver.exe";
+		System.setProperty(Key, value);
+		WebDriver driver=new ChromeDriver();*/
+
+		//case3:-
+	/*	String Key="webdriver.chrome.driver";
+		String value="C:\\Users\\Shobha\\Downloads\\chromedriver_win32 (11)\\chromedriver.exe";
+		System.setProperty(Key, value);
+		WebDriver driver=new ChromeDriver();*/
+		
+		//case4:-
+		//WebDriverManager.chromedriver().setup();
+		//WebDriver driver=new ChromeDriver();
+		
+		//WebDriverManager.firefoxdriver().setup();
+		//WebDriver driver=new FirefoxDriver();
+		
+	//	WebDriverManager.edgedriver().setup();
+	//	WebDriver driver=new EdgeDriver();
+		
+	}
+
+}
+-----------------------------------------------------------------------------------------------------------
+Versions:-
+
+<dependencies>
+  
+  <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
+<dependency>
+    <groupId>org.seleniumhq.selenium</groupId>
+    <artifactId>selenium-java</artifactId>
+    <version>3.141.59</version>
+</dependency>
+  
+  <!-- https://mvnrepository.com/artifact/io.github.bonigarcia/webdrivermanager -->
+<dependency>
+    <groupId>io.github.bonigarcia</groupId>
+    <artifactId>webdrivermanager</artifactId>
+    <version>5.4.0</version>
+</dependency>
+  
+
+</dependencies>
+----------------------------------------------------------------------------------------------------------------
+
+SetUp for Selenium Version-4
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class Browser {
+
+	public static void main(String[] args) {
+		
+		WebDriver driver=new ChromeDriver();
+
+	}
+
+}
+---------------------------------------------------------------------------------------------------------------
+Version
+
+ <dependencies>
+  
+  <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
+<dependency>
+    <groupId>org.seleniumhq.selenium</groupId>
+    <artifactId>selenium-java</artifactId>
+    <version>4.9.1</version>
+</dependency>
+  
+</dependencies>
+
+-------------------------------------------------------------------------------------------------------------------

@@ -1,0 +1,175 @@
+WebDriver Methods:-
+
+Ex-1
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.edge.EdgeDriver;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+
+public class WebDriverMethod {
+
+	public static void main(String[] args) {
+		
+		/*WebDriverManager.chromedriver().setup();
+		WebDriver driver = new ChromeDriver();*/
+		
+		WebDriverManager.edgedriver().setup();
+		WebDriver driver=new EdgeDriver();
+		
+		//get()--->used to launch Application
+		driver.get("https://www.flipkart.com/");
+		//driver.get("https://www.amazon.in/");
+		
+		//getTitle()---->used for fetching the title of the webPage
+		String title = driver.getTitle();
+		System.out.println(title);
+		
+		//getCurrentUrl()---->Prints url of the applocation
+		String URL = driver.getCurrentUrl();
+		System.out.println(URL);
+		
+		//getPageSource()--->Prints source Code of the page
+		//String source = driver.getPageSource();
+	   // System.out.println(source);
+	
+		//close()--->closes only single tab/window
+	   // driver.close();
+		
+		//quit()---->closes all the tab/windows
+		//driver.quit();
+	}
+
+}
+---------------------------------------------------------------------------------------------------------------------
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebDriver.Options;
+import org.openqa.selenium.WebDriver.Window;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class WebdriverMethods {
+
+	public static void main(String[] args) throws Throwable  {
+		
+		WebDriver driver=new ChromeDriver();
+		//driver.get("https://www.amazon.in/");
+      //  driver.get("https://www.facebook.com/");
+        
+      /* String title = driver.getTitle();
+        System.out.println(title);
+        
+        String URL = driver.getCurrentUrl();
+        System.out.println(URL);
+        
+      //  String source = driver.getPageSource();
+       // System.out.println(source);
+        
+      Options opt = driver.manage();
+        Window win = opt.window();
+        win.maximize();
+        
+       // driver.manage().window().maximize();
+       // driver.manage().window().minimize();
+      // driver.manage().window().fullscreen();*/
+        
+		//navigate()--->Launching the appliocation
+        driver.navigate().to("https://www.facebook.com/");
+       
+        //navigate().back()--->navigates the back icon in webPage
+        driver.navigate().back();
+      
+      //navigate().forward()--->navigates the forward icon in webPage
+       Thread.sleep(1000);
+       driver.navigate().forward();
+      
+       //navigate().refresh()--->navigates the refresh icon in webPage
+       Thread.sleep(1000);
+       driver.navigate().refresh();
+       
+     // driver.close();
+       driver.quit();
+       
+    }
+
+}
+-----------------------------------------------------------------------------------------------------------------------
+
+Locators 
+
+Example Program:-
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class Loctors {
+
+	public static void main(String[] args) throws Throwable {
+	
+		//Launching Browser
+		WebDriver driver=new ChromeDriver();
+		
+		//Launching Application
+		driver.get("https://demo.actitime.com/login.do");
+		
+		//MAximizing Screen
+		driver.manage().window().maximize();
+		
+	/*//Passing the VAlue to UserTextField using id() Locator
+	driver.findElement(By.id("username")).sendKeys("admin");
+		
+		Thread.sleep(2000);
+	driver.findElement(By.name("pwd")).sendKeys("manager");
+
+	driver.findElement(By.id("loginButtonContainer")).click();*/
+	
+	driver.findElement(By.className("textField")).sendKeys("admin");
+	Thread.sleep(1000);
+	//driver.findElement(By.className("textField pwdfield")).sendKeys("manager");
+	
+	driver.findElement(By.className("pwdfield")).sendKeys("manager");
+	Thread.sleep(1000);
+	//driver.findElement(By.id("keepLoggedInCheckBox")).click();
+	
+	driver.findElement(By.name("remember")).click();
+	
+	driver.findElement(By.className("initial")).click();
+	
+	Thread.sleep(1000);
+	
+	//driver.findElement(By.linkText("View Time-Track")).click();
+	//driver.findElement(By.linkText("Lock Time-Track")).click();
+	
+	driver.findElement(By.partialLinkText("View T")).click();
+	}
+
+}
+--------------------------------------------------------------------------------------------------------------------
+Ex-2
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+
+public class PraticePrg {
+
+	public static void main(String[] args) throws Throwable {
+		
+		WebDriverManager.chromedriver().setup();
+		WebDriver driver=new ChromeDriver();
+
+		driver.get("https://www.amazon.in/");
+		//driver.findElement(By.id("twotabsearchtextbox")).sendKeys("puma");
+		
+		Thread.sleep(1000);
+		//driver.findElement(By.name("field-keywords")).sendKeys("bluetooth");
+		//driver.findElement(By.linkText("Today's Deals")).click();
+	driver.findElement(By.partialLinkText("Today's")).click();
+	}
+
+}
+------------------------------------------------------------------------------------------------------------------------
+

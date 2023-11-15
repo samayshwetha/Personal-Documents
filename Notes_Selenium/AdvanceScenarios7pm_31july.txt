@@ -1,0 +1,477 @@
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import io.github.bonigarcia.wdm.WebDriverManager;
+
+public class KeysClassEx {
+
+	public static void main(String[] args) {
+		
+		//import org.openqa.selenium.Keys;
+		WebDriverManager.chromedriver().setup();
+		WebDriver driver=new ChromeDriver();
+		driver.get("https://demo.actitime.com/login.do");
+
+		//case:1
+	/*	driver.findElement(By.id("username")).sendKeys("admin");
+		WebElement PASSWORD = driver.findElement(By.name("pwd"));
+		PASSWORD.sendKeys("manager",Keys.ENTER);*/
+	
+		//case:2
+		/*driver.findElement(By.id("username")).sendKeys("admin");
+		driver.findElement(By.name("pwd")).sendKeys("manager",Keys.ENTER);*/
+	
+	//case:3
+		//driver.findElement(By.id("username")).sendKeys("admin",Keys.TAB,"manager",Keys.ENTER);
+	
+		//case:4 checkbox
+		driver.findElement(By.id("username")).sendKeys("admin",Keys.TAB,"manager",Keys.TAB,Keys.SPACE,Keys.ENTER);
+	}
+
+}
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+
+public class KeysClassEx2 {
+
+	public static void main(String[] args) {
+		WebDriverManager.chromedriver().setup();
+		WebDriver driver=new ChromeDriver();
+		driver.get("https://www.amazon.in");
+		driver.findElement(By.xpath("//input[@id='twotabsearchtextbox']")).sendKeys("puma",Keys.ENTER);
+	}
+
+}
+--------------------------------------------------------------------------------------------------------------------------------------------------------------
+import java.awt.Robot;
+import java.awt.event.KeyEvent;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+
+public class KeyBoardStrokeUsingRobotClass {
+
+	public static void main(String[] args) throws Throwable {
+		
+		WebDriverManager.chromedriver().setup();
+		WebDriver driver=new ChromeDriver();
+		driver.get("https://demo.actitime.com/login.do");
+
+		//case:1
+		driver.findElement(By.id("username")).sendKeys("admin");
+	
+	Robot r = new Robot();
+		
+	r.keyPress(KeyEvent.VK_CONTROL);
+	r.keyPress(KeyEvent.VK_A);
+	//r.keyRelease(KeyEvent.VK_CONTROL);
+	//r.keyRelease(KeyEvent.VK_A);
+	
+	Thread.sleep(1000);
+	r.keyPress(KeyEvent.VK_CONTROL);
+	r.keyPress(KeyEvent.VK_C);
+	r.keyRelease(KeyEvent.VK_CONTROL);
+	r.keyRelease(KeyEvent.VK_C);
+	
+	Thread.sleep(1000);
+	r.keyPress(KeyEvent.VK_TAB);
+	r.keyRelease(KeyEvent.VK_TAB);
+	
+	Thread.sleep(1000);
+	r.keyPress(KeyEvent.VK_CONTROL);
+	r.keyPress(KeyEvent.VK_V);
+	r.keyRelease(KeyEvent.VK_CONTROL);
+	r.keyRelease(KeyEvent.VK_V);
+	
+	}
+
+}
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+
+public class ListBoxHandlingUsingKeysClass {
+
+	public static void main(String[] args) throws Throwable {
+		
+		WebDriverManager.chromedriver().setup();
+		WebDriver driver=new ChromeDriver();
+		driver.get("https://www.facebook.com/");
+		driver.manage().window().maximize();
+		
+driver.findElement(By.xpath("//a[.='Create new account']")).click();
+Thread.sleep(2000);
+WebElement dayList = driver.findElement(By.id("day"));
+dayList.click();
+	Thread.sleep(1000);
+dayList.sendKeys(Keys.ARROW_DOWN);
+Thread.sleep(1000);
+dayList.sendKeys(Keys.ARROW_DOWN);
+Thread.sleep(1000);
+dayList.sendKeys(Keys.ARROW_DOWN);
+Thread.sleep(1000);
+dayList.sendKeys(Keys.ARROW_UP);
+Thread.sleep(1000);
+dayList.sendKeys(Keys.ARROW_UP);
+Thread.sleep(1000);
+dayList.sendKeys(Keys.ARROW_UP);
+Thread.sleep(1000);
+dayList.sendKeys(Keys.ARROW_UP);
+Thread.sleep(1000);
+dayList.sendKeys(Keys.ARROW_UP);
+	
+	
+	}
+
+}
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.Select;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+
+public class ListBoxHandlingUsingSelectClass {
+
+	public static void main(String[] args) throws Throwable {
+		
+		WebDriverManager.chromedriver().setup();
+		WebDriver driver=new ChromeDriver();
+		driver.get("https://www.facebook.com/");
+		driver.manage().window().maximize();
+		
+        driver.findElement(By.xpath("//a[.='Create new account']")).click();
+        Thread.sleep(2000);
+      //selectByIndex
+        WebElement dayList = driver.findElement(By.id("day"));
+        Select sel = new Select(dayList);
+        sel.selectByIndex(10);
+	
+	   WebElement monthList = driver.findElement(By.id("month"));
+	   Select sele = new Select(monthList);
+	   sele.selectByIndex(5);
+	   
+	   WebElement yearList = driver.findElement(By.id("year"));
+	   Select select = new Select(yearList);
+	   select.selectByIndex(1);
+	}
+
+}
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.Select;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+
+public class ListBoxHandlingUsingSelectClass {
+
+	public static void main(String[] args) throws Throwable {
+		
+		WebDriverManager.chromedriver().setup();
+		WebDriver driver=new ChromeDriver();
+		driver.get("https://www.facebook.com/");
+		driver.manage().window().maximize();
+		
+        driver.findElement(By.xpath("//a[.='Create new account']")).click();
+        Thread.sleep(2000);
+      //selectByIndex
+      /*  WebElement dayList = driver.findElement(By.id("day"));
+        Select sel = new Select(dayList);
+        sel.selectByIndex(10);
+	
+	   WebElement monthList = driver.findElement(By.id("month"));
+	   Select sele = new Select(monthList);
+	   sele.selectByIndex(5);
+	   
+	   WebElement yearList = driver.findElement(By.id("year"));
+	   Select select = new Select(yearList);
+	   select.selectByIndex(1);*/
+	
+        //selectByValue()
+      /*  WebElement dayList = driver.findElement(By.id("day"));
+        Select sel = new Select(dayList);
+        sel.selectByValue("25");
+	
+        WebElement monthList = driver.findElement(By.id("month"));
+ 	   Select sele = new Select(monthList);
+ 	  sele.selectByValue("9");
+ 	   
+ 	 WebElement yearList = driver.findElement(By.id("year"));
+	   Select select = new Select(yearList);
+	   select.selectByValue("2020");*/
+	
+	   //SelectByVisibleText()
+	
+        WebElement dayList = driver.findElement(By.id("day"));
+        Select sel = new Select(dayList);
+        sel.selectByVisibleText("5");
+	
+        WebElement monthList = driver.findElement(By.id("month"));
+  	   Select sele = new Select(monthList);
+  	 sele.selectByVisibleText("Aug");
+	}
+
+}
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+
+public class ListBoxHandlingUsingLoctors {
+
+	public static void main(String[] args) throws Throwable {
+		
+		WebDriverManager.chromedriver().setup();
+		WebDriver driver=new ChromeDriver();
+		driver.get("https://www.facebook.com/");
+		driver.manage().window().maximize();
+		
+        driver.findElement(By.xpath("//a[.='Create new account']")).click();
+        Thread.sleep(2000);
+driver.findElement(By.id("day"));
+driver.findElement(By.xpath("//option[text()='10']")).click();
+	
+driver.findElement(By.id("month"));
+driver.findElement(By.xpath("//option[text()='Feb']")).click();
+
+driver.findElement(By.id("year"));
+	driver.findElement(By.xpath("//option[text()='2016']")).click();
+	}
+
+}
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
+import io.github.bonigarcia.wdm.WebDriverManager;
+
+public class ActionCLassEx {
+
+	public static void main(String[] args) {
+		
+		WebDriverManager.chromedriver().setup();
+		WebDriver driver=new ChromeDriver();
+	//	driver.get("https://www.amazon.in/");
+		driver.manage().window().maximize();
+		
+		//moveToElement(),ContextClick()
+	/*WebElement data = driver.findElement(By.xpath("//a[text()='Mobiles']"));
+	Actions act = new Actions(driver);
+	//act.moveToElement(data).click().perform();
+	act.contextClick(data).perform();*/
+		
+	/*	driver.get("https://demo.actitime.com/login.do");
+      WebElement USERNAME = driver.findElement(By.id("username"));
+	  WebElement PASSWORD = driver.findElement(By.name("pwd"));
+	  WebElement login = driver.findElement(By.id("loginButton"));
+	
+	  Actions act = new Actions(driver);
+	  act.sendKeys(USERNAME, "admin").perform();
+	  act.sendKeys(PASSWORD, "manager").perform();
+	  act.click(login).click().perform();
+	act.sendKeys(USERNAME,"admin").sendKeys(PASSWORD,"manager").click(login).build().perform();*/
+	
+	driver.get("https://jqueryui.com/resources/demos/droppable/default.html");
+	WebElement drag = driver.findElement(By.id("draggable"));
+	WebElement drop = driver.findElement(By.id("droppable"));
+	
+	Actions act = new Actions(driver);
+	act.dragAndDrop(drag, drop).perform();
+	}
+}
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+package AdvanceScenarios;
+
+import java.awt.AWTException;
+import java.awt.Robot;
+import java.awt.event.KeyEvent;
+
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+
+public class ScrollByRobotClass {
+
+	public static void main(String[] args) throws Throwable {
+		
+		WebDriverManager.chromedriver().setup();
+		WebDriver driver=new ChromeDriver();
+		driver.get("https://www.amazon.in/");
+        driver.manage().window().maximize();
+
+    /*    Robot r = new Robot();
+	r.keyPress(KeyEvent.VK_PAGE_DOWN);
+	r.keyRelease(KeyEvent.VK_PAGE_DOWN);
+	
+	Thread.sleep(2000);
+	r.keyPress(KeyEvent.VK_PAGE_DOWN);
+	r.keyRelease(KeyEvent.VK_PAGE_DOWN);
+	
+	Thread.sleep(2000);
+	r.keyPress(KeyEvent.VK_PAGE_UP);
+	r.keyRelease(KeyEvent.VK_PAGE_UP);
+	
+	Thread.sleep(2000);
+	r.keyPress(KeyEvent.VK_PAGE_UP);
+	r.keyRelease(KeyEvent.VK_PAGE_UP);
+	
+	Thread.sleep(2000);
+	r.keyPress(KeyEvent.VK_PAGE_UP);
+	r.keyRelease(KeyEvent.VK_PAGE_UP);*/
+        
+        JavascriptExecutor js = (JavascriptExecutor)driver;
+        
+        for(int i=0;i<5;i++)
+        {
+        	js.executeScript("window.scrollBy(0,1000)");
+        	Thread.sleep(1000);
+        }
+        
+        for(int i=0;i<5;i++)
+        {
+        	js.executeScript("window.scrollBy(0,-1000)");
+        	Thread.sleep(1000);
+        }
+	}
+
+}
+----------------------------------------------------------------------------------------------------
+package AdvanceScenarios;
+
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+
+public class ScrollByJavaScriptExecutor {
+
+	public static void main(String[] args) throws Throwable {
+		
+		WebDriverManager.chromedriver().setup();
+		WebDriver driver=new ChromeDriver();
+		driver.get("https://www.selenium.dev/downloads/");
+        driver.manage().window().maximize();
+
+        //scroll by action
+        JavascriptExecutor jse = (JavascriptExecutor)driver;
+        //single Scroll down(y)
+      //  jse.executeScript("window.scrollBy(0,2000);","");
+        
+        Thread.sleep(1000);
+        //single scroll right(x)
+        jse.executeScript("window.scrollBy(1000,0);","");
+        
+        Thread.sleep(1000);
+        //single scroll up(-y)
+       // jse.executeScript("window.scrollBy(0,-2000)");
+        Thread.sleep(1000);
+        //single scroll left(-x)
+        jse.executeScript("window.scrollBy(-1000,0);","");
+        
+        //scroll complete page Bar Height(down)
+       // jse.executeScript("window.scrollTo(0,document.body.scrollHeight)");
+      
+        Thread.sleep(1000);
+        //scroll complete page bar height(up)
+       // jse.executeScript("window.scrollTo(0,-document.body.scrollHeight)");
+        
+	}
+
+}
+--------------------------------------------------------------------------------------------------------------
+package AdvanceScenarios;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.Dimension;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Point;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+
+public class ScrollByJavaScriptExecutor1 {
+
+	public static void main(String[] args) throws Throwable {
+		
+		WebDriverManager.chromedriver().setup();
+		WebDriver driver=new ChromeDriver();
+		driver.get("https://www.facebook.com");
+        driver.manage().window().maximize();
+
+        WebElement element = driver.findElement(By.xpath("//a[.='Help']"));
+         Point data = element.getLocation();
+        System.out.println(data.getX());
+        System.out.println(data.getY());
+        JavascriptExecutor js = (JavascriptExecutor)driver;
+		 js.executeScript("window.scrollBy(237,825)");
+		 element.click();
+        
+   /*JavascriptExecutor js = (JavascriptExecutor)driver;
+	js.executeScript("arguments[0].scrollIntoView()", element);
+	Thread.sleep(2000);
+	element.click();*/
+	}
+
+}
+----------------------------------------------------------------------------------------------------------------------
+package AdvanceScenarios;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+
+public class SvgElements {
+
+	public static void main(String[] args) {
+		
+		WebDriverManager.chromedriver().setup();
+		WebDriver driver=new ChromeDriver();
+		driver.get("https://www.google.com");
+        driver.manage().window().maximize();
+
+       // driver.findElement(By.xpath("//a[@class='gb_d']")).click();
+        //svg:-scalable vector Graphics
+     //syntax:-   //*[name()='svg' and @AttributeName='AttributeValue']
+        driver.findElement(By.xpath("//*[name()='svg' and @class='gb_j']")).click();
+	}
+
+}
+
+
+

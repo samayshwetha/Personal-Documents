@@ -1,0 +1,80 @@
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class Assignment1 {
+
+	public static void main(String[] args) throws Throwable {
+		
+		WebDriver driver=new ChromeDriver();
+
+		driver.get("https://www.flipkart.com/");
+		driver.manage().window().maximize();
+		driver.findElement(By.xpath("//button[text()='✕']")).click();
+		
+		driver.findElement(By.name("q")).sendKeys("iphone");
+		driver.findElement(By.cssSelector("[type='submit']")).click();
+		
+		/*WebElement data = driver.findElement(By.name("q"));
+		data.sendKeys("iphone");
+		//data.submit();*/
+		
+		Thread.sleep(2000);
+		/*String value = driver.findElement(By.xpath("//div[text()='APPLE iPhone 13 (Midnight, 128 GB)']
+		/../../div/div/div[@class='_25b18c']")).getText();
+	System.out.println(value);*/
+	
+	/*String data1 = driver.findElement(By.xpath("//div[text()='APPLE iPhone 13 (Midnight, 128 GB)']"
+			+ "/../../div/div/div/div[@class='_30jeq3 _1_WHN1']")).getText();
+	System.out.println(data1);*/
+		
+	String price = driver.findElement(By.xpath("//div[text()='APPLE iPhone 13 (Midnight, 128 GB)']/../following-sibling::div//div[@class='_30jeq3 _1_WHN1']")).getText();
+	System.out.println(price);
+	}
+
+}
+-----------------------------------------------------------------------------------------------------------------------------------
+
+import java.time.Duration;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class Assignment2 {
+
+	public static void main(String[] args) throws Throwable {
+		
+	//GreenApple
+		WebDriver driver=new ChromeDriver();
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+		driver.get("https://www.bigbasket.com/");
+		WebElement element = driver.findElement(By.xpath("//input[@qa='searchBar']"));
+		element.sendKeys("apples");
+		driver.findElement(By.xpath("//i[@class='icon svg-header svg-search svg-search-dim hidden-sm hidden-xs']")).click();
+		
+		//puma
+		
+	/*	WebDriver driver=new ChromeDriver();
+		driver.manage().window().maximize();
+		driver.get("https://www.flipkart.com/");
+		driver.findElement(By.xpath("//button[.='✕']")).click();
+		 WebElement data=driver.findElement(By.name("q"));
+		data.sendKeys("puma");
+        data.submit();
+        Thread.sleep(1000);
+      /* WebElement element = driver.findElement(By.xpath("(//div[@class='_30jeq3'])[position()=2]"));
+		String secondPrice = element.getText();
+		System.out.println(secondPrice);*/
+        //or
+    //   WebElement price = driver.findElement(By.xpath("//div[@class='_1YokD2 _3Mn1Gg']//div[@class='_1AtVbE col-12-12'][1]/div/div[2]//div[@class='_2B099V']//div[@class='_30jeq3']"));
+      //System.out.println(price.getText());*/
+	
+	}
+
+	}
+
+
+------------------------------------------------------------------------------------------------------------------------------------
